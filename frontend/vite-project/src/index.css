@@ -1,0 +1,21 @@
+/* src/App.css */
+*{
+    padding: 0;
+    margin: 0;
+    
+}
+.hyperlink a {
+    text-decoration: none;
+    color: inherit; /* Inherit color from parent */
+}
+
+.hyperlink a:hover {
+  text-decoration: underline; /* Optional: add underline on hover if needed */
+}
+
+.hover-underline:hover {
+  text-decoration: underline;
+}
+
+
+
