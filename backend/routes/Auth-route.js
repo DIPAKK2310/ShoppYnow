@@ -12,21 +12,18 @@ router.route("/login").post(login)
 router.route("/getuserData")
     .get(middleware,
         async (req, res) => {
+            try{
             res.status(200).json({
                 userData: req.user,
-                message: "data send "
+                message: "data send succesfully"
             })
+        }catch(error){
+            res.status(500).json({
+                message: "Error in getting user data",
+                error: error.message
+            })
+        }
         })
-
-        router.get("/users",async(req,res)=>{
-   
-          const UsersData = await User.find()
-          res.status(200).json({
-              message:"data send succesfully ",
-              UsersData
       
-              
-          })
-      })       
 
 module.exports=router

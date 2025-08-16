@@ -28,34 +28,30 @@ const corsSystem = {
 
 app.use(cors(corsSystem))
 
-// Middleware to parse JSON data
-// use the app to convert data which is get from express into json
+
 app.use(express.json())
 
 // Routes
     app.use("/api/auth",authRouter)
     app.use("/api/admin",adminRouter)
     app.use("/api/product",productRouter)
-    // app.use("/api/product",productRouter)
 
-// app.use('/',async(req ,res)=>{
-//     res.send('This a home page of backend app')
-// })
-// Creating home route and sending responce that this is home page
+    app.get('/',(req,res)=>{
+        res.status(200).send("Backend is running🚀")
+    })
+ 
 
 
-const PORT = process.env.PORT||4000
-// Storing 4000 in variable PORT 
+const PORT = process.env.PORT
+
 
 
 connectdb().then(()=>{
     app.listen(PORT,()=>{
-        console.log(`This server running on ${PORT}`)
+        console.log(`This server running on http://localhost:${PORT}`)
     });
 }).catch((error)=>{
-    console.error('Failed to connect to databse:',error)
+    console.error('Failed to connect to database:',error)
 });
 
 
-
-// listening app on PORT then printing it on console this server running on PORT=5000

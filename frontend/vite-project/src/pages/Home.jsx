@@ -3,7 +3,7 @@ import { useAuth } from '../store/AuthContext';
 
 import Footer from '../components/Footer';
 import Carousal from '../components/Carousal';
-import HeroSection from '../components/HeroSection';
+import HeroSection from '../components/HeroSection.jsx';
 import { Shoes } from '../components/Shoes';
 
 

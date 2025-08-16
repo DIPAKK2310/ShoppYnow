@@ -3,29 +3,29 @@
 const jwt =require('jsonwebtoken')
 require('dotenv').config();
 
-const secretKey = process.env.JWT_SECRET
+const secretKey = process.env.JWT_SECRET_KEY
 
  const userSchema= mongoose.Schema({
     username:{
         type:String,
         required:true,
+        trim:true,
     },
     email:{
         type:String,
         required:true,
         lowercase:true,
         unique:true,
+        trim:true,
+        match: [/\S+@\S+\.\S+/, 'Invalid email address'],
     },
     password:{
         type:String,
         required:true,
+        minlength:6,
         
     },
-    role:{
-        type:String,
-        enum:['user','admin'],
-        default:'user',
-    },
+   
 
  }, {timestamps: true});
 
@@ -40,16 +40,17 @@ userSchema.methods.generateToken = async function (){
       return jwt.sign({
         userId:this._id.toString(),
         email:this.email,
-        isAdmin:this.role=='admin',
+        isUser:true,
       },
-   process.env.JWT_SECRET_KEY,{expiresIn:'10h'}
+    secretKey,{expiresIn:'10h'}
     )
     } catch (error) {
-      
+      console.error("JWT token generation error",error)
+      throw new Error("Failed to generate JWT token")
     }
   }
 
 
- const user = mongoose.model("user",userSchema)
+ const User = mongoose.model("User",userSchema)
 
- module.exports=user
+ module.exports=User

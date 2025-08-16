@@ -1,6 +1,7 @@
 const user = require('../models/Auth-user');
 const User = require('../models/Auth-user');
 const bcrypt = require('bcryptjs');
+const { validateRegistration, validateLogin } = require('../validators/authValidator');
 
 // Home route (no changes)
 const home = async (req, res) => {
@@ -18,8 +19,21 @@ const register = async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
+        const validationErrors = validateRegistration(username, email, password);
+        if (validationErrors.length > 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Validation failed',
+                errors: validationErrors
+            });
+        }
+
+
+        
+        const cleanEmail = email.toLowerCase().trim();
+
         // Check if the user already exists
-        const userExist = await User.findOne({ email: email });
+        const userExist = await User.findOne({ email: cleanEmail });
         
         if (userExist) {
             return res.status(409).json({
@@ -32,22 +46,23 @@ const register = async (req, res) => {
 
         // Create the new user
         const userCreated = await User.create({
-            email,
-            username,
+            email:cleanEmail,
+            username:username.trim(),
             password: hashPassword,
            
         }); 
-
+   console.log("User stored in db", userCreated)
         res.status(200).json({
             message: "Registered successfully.",
             userCreated,
+          
             // to generating the token 
             token:await userCreated.generateToken(),
             userId:await userCreated._id.toString(),
         });
 
     } catch (error) {
-        console.error(error);  // Log the error for debugging
+        console.error("Error in register controller:", error);  // Log the error for debugging
         res.status(500).json({
             message: "Server error, please try again later."
         });
@@ -60,19 +75,27 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        const validationErrors = validateLogin(email, password);
+        if (validationErrors.length > 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Validation failed',
+                errors: validationErrors
+            });
+        }
 
-
+        const cleanEmail = email.toLowerCase().trim();
         // Find user by email
-        const isFound = await User.findOne({ email: email });
+        const user = await User.findOne({ email: cleanEmail });
 
-        if (!isFound) {
+        if (!user) {
             return res.status(400).json({
                 message: "Invalid credentials"
             });
         }
 
         // Compare the entered password with the stored hash
-        const isMatch = await bcrypt.compare(password, isFound.password);
+        const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
             return res.status(400).json({
@@ -81,14 +104,14 @@ const login = async (req, res) => {
         }
 
         // generate jwt token for the user
-        const token = await isFound.generateToken(); // Ensure that the `generateToken` method is defined on the user model
+        const token = await user.generateToken(); // Ensure that the `generateToken` method is defined on the user model
        
         // If password matches, proceed with login (e.g., send JWT token)
         res.status(200).json({
             message: "Login successful",
             token:token,
-            userID:isFound._id.toString(),
-            role:user.role,
+            userID:user._id.toString(),
+            role:user.role || 'user',
         });
 
     } catch (error) {

@@ -5,7 +5,7 @@ import { useAuth } from '../store/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'; // Import Link for navigation
 import { toast } from 'react-hot-toast';
-
+import bgEcomm from '../assets/bg-ecomm.jpg'
 // LoginForm component for user login functionality
 const Login = () => {
   const navigate = useNavigate(); // Used to navigate programmatically to different routes
@@ -68,9 +68,33 @@ const Login = () => {
 
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
+
+    
+    <div className='position-relative vh-100'>
+
+    <div
+    
+     style={{
+      minHeight:"calc(100vh - 56px)",
+      backgroundImage:`url(${bgEcomm})`,
+       backgroundRepeat:'no-repeat',
+       backgroundSize:'cover',
+      filter:'blur(2px)',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      zIndex: 0
+
+     }}
+    >
+      </div>
+    <div className="container  position-relative " style={{zIndex:1,height:"calc(100vh - 56px)"}}>
+      <div className="row h-100 align-items-center justify-content-center ">
+      
+        {/* Right Login card*/}
+        <div className="col-12 col-md-6">
           <div className="card">
             <div className="card-header text-center">
               <h4>Login</h4>
@@ -123,6 +147,8 @@ const Login = () => {
           </div>
         </div>
       </div>
+    </div>
+    
     </div>
   );
 }

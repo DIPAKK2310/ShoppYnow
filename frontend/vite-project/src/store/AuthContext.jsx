@@ -25,8 +25,8 @@ export const AuthProvider = ({ children }) => {
           },
         });
         setUser(response.data.user);
-        setIsAdmin(response.data.user?.role === "admin") // Or however you check role
-        console.log("fetch user: ",response.data.user)
+        setIsAdmin(response.data.userData?.role === "admin") // Or however you check role
+        console.log("fetch user: ",response.data.userData)
       } catch (error) {
         console.error('Error fetching user data:', error);
         removeToken();

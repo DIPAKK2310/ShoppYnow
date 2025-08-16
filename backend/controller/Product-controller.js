@@ -1,5 +1,6 @@
 //requireing product-model from models & storing it in Product
 const Product = require('../models/Product-model');
+const { validateProduct } = require('../validators/valiadateProduct');
 
 const Addproduct= async (req, res)=>{
     try {
@@ -19,6 +20,17 @@ const Addproduct= async (req, res)=>{
             ratings,
             reviews,
             } = req.body;
+            
+              // ✅ Validate essential fields
+        const validationErrors = validateProduct(name, description, price);
+
+        if (validationErrors.length > 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Validation failed',
+                errors: validationErrors,
+            });
+        }
 
 
         const newProduct= new Product({

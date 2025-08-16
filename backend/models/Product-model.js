@@ -5,13 +5,13 @@ const mongoose = require('mongoose')
 const productSchema= new mongoose.Schema({
    name:{ type: String, required: true},
    description:{ type: String, required: false},
-   price:{ type: String, required: true},
+   price:{ type: Number, required: true},
    discountprice:{ type: Number},
    imageUrl:{type: String},
    sku:{ type: String, required: false},
    stock:{ type: Number, required: false},
    category:{ type: String, required: true},
-   tags:{ String},
+   tags: [{ type: String }],
    variants: [
     {
       size: { type: String },
@@ -28,15 +28,15 @@ const productSchema= new mongoose.Schema({
     height: { type: Number },
   },
   ratings: {
-    average: { type: Number },
-    totalReviews: { type: Number },
+    average: { type: Number,default:0 },
+    totalReviews: { type: Number,default:0 },
   },
   reviews: [
     {
       user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-      rating: { type: Number },
+      rating: { type: Number,min:1,max:5 },
       reviewText: { type: String },
-      createdAt: { type: Date },
+      createdAt: { type: Date,default:Date.now },
     },
   ],
   createdAt: { type: Date, default: Date.now },

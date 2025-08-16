@@ -75,7 +75,13 @@ function Register() {
     <div className='container mt-5'> 
       <div className='row justify-content-center'>
     <div className='col-12 col-md-6'>
+      <div className='card'>
+        <div className='card-header text-center'>
+
       <h2 className='text-center mb-4'>Register</h2>
+        </div>
+        <div className='card-body'>
+
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="username" className="form-label">Username</label>
@@ -88,7 +94,7 @@ function Register() {
             value={formData.username}
             onChange={handleChange}
             disabled={loading} // Disable input while loading
-          />
+            />
         </div>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">Email address</label>
@@ -97,11 +103,11 @@ function Register() {
             className="form-control"
             id="email"
             name="email"
-             placeholder='Enter your Email'
+            placeholder='Enter your Email'
             value={formData.email}
             onChange={handleChange}
             disabled={loading} // Disable input while loading
-          />
+            />
         </div>
         <div className="mb-3">
           <label htmlFor="password" className="form-label">Password</label>
@@ -114,7 +120,7 @@ function Register() {
             value={formData.password}
             onChange={handleChange}
             disabled={loading} // Disable input while loading
-          />
+            />
         </div>
 
         {error && <div className="alert alert-danger">{error}</div>}
@@ -124,6 +130,8 @@ function Register() {
         </button>
         </div>
       </form>
+        </div>
+            </div>
     </div>
     </div>
     </div>

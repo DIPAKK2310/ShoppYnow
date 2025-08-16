@@ -1,13 +1,13 @@
 const express = require('express');
-const User = require('../models/Auth-user');
+const Admin = require('../models/Admin-model');
 const authenticateAdmin = require('../middleware/Admin-middleware');
-const admin = require('../controller/Admin-controller');
+const {adminLogin} = require('../controller/Admin-controller');
 
 const router = express.Router();
 
 // @desc Admin Login (GET token)
 // @route POST /api/admin/login
-router.post("/login", admin); // 🔐 Admin login to get JWT token
+router.post("/login", adminLogin); // 🔐 Admin login to get JWT token
 
 // @desc Check Admin Access
 // @route GET /api/admin/protected
@@ -25,10 +25,10 @@ router.get("/protected", authenticateAdmin, async (req, res) => {
 
 // @desc Get All Users (Admin Only)
 // @route GET /api/admin/users
-router.get('/users', authenticateAdmin, async (req, res) => {
+router.get('/admins', authenticateAdmin, async (req, res) => {
   try {
-    const users = await User.find();
-    res.status(200).json(users);
+    const admins = await Admin.find().select('-password');//Exclude password
+    res.status(200).json(admins);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Error fetching users' });
@@ -37,13 +37,13 @@ router.get('/users', authenticateAdmin, async (req, res) => {
 
 // @desc Delete User by ID
 // @route DELETE /api/admin/users/:userId
-router.delete('/users/:userId', authenticateAdmin, async (req, res) => {
+router.delete('/admins/:adminId', authenticateAdmin, async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.userId);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+    const deleteAdmin = await Admin.findByIdAndDelete(req.params.adminId);
+    if (!deleteAdmin) {
+      return res.status(404).json({ message: 'Admin not found' });
     }
-    res.status(200).json({ message: '🗑️ User deleted successfully' });
+    res.status(200).json({ message: '🗑️ Admin deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -51,20 +51,26 @@ router.delete('/users/:userId', authenticateAdmin, async (req, res) => {
 
 // @desc Update User by ID
 // @route PUT /api/admin/users/:userId
-router.put('/users/:userId', authenticateAdmin, async (req, res) => {
+router.put('/admins/:adminId', authenticateAdmin, async (req, res) => {
   try {
-    const { username, email } = req.body;
-    const updatedUser = await User.findByIdAndUpdate(
-      req.params.userId,
-      { username, email },
-      { new: true }
-    );
-    if (!updatedUser) {
-      return res.status(404).json({ message: 'User not found' });
+    const { username, email,} = req.body;
+
+    if (password) {
+      const bcrypt = require('bcryptjs');
+      updateData.password = await bcrypt.hash(password, 10);
     }
-    res.status(200).json({ message: 'User updated', updatedUser });
+
+    const updatedAdmin = await Admin.findByIdAndUpdate(
+      req.params.adminId,
+       updateData,
+      { new: true, runValidators: true }
+    ).select('-password');//password excluded
+    if (!updatedAdmin) {
+      return res.status(404).json({ message: 'Admin not found' });
+    }
+    res.status(200).json({ message: 'Admin updated', updatedAdmin });
   } catch (err) {
-    console.error('Error updating user:', err.message);
+    console.error('Error updating admin:', err.message);
     res.status(500).json({ message: 'Server error while updating user' });
   }
 });

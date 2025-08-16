@@ -36,7 +36,7 @@ const AdminDashboardLogin = ({onLogin}) => {
       if (response.status === 200) {
         // Save token and role in localStorage (using the response from the backend)
         localStorage.setItem('token', response.data.token);  // The backend will return a token
-        localStorage.setItem('role', response.data.role);  // Assuming the backend also returns the user role
+        localStorage.setItem('role', response.data.admin.role);  // Assuming the backend also returns the user role
          toast.success("Admin login successful");
 
         onLogin();
@@ -99,11 +99,6 @@ const AdminDashboardLogin = ({onLogin}) => {
                 Login
               </button>
             </form>
-
-            {/* Register Link */}
-            <p className="mt-3 text-center">
-              Don't have an account? <Link to="/register">Register</Link>
-            </p>
           </div>
         </div>
       </div>

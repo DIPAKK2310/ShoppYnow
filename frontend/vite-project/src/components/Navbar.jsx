@@ -1,30 +1,36 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../context/ThemContext';
 import { IoIosSunny } from "react-icons/io";
 import { FaMoon } from "react-icons/fa6";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { useAuth } from '../store/AuthContext';
 
 function Navbar({isDarkMode}) {
+  const{darkMode, toggleDarkMode}= useContext(ThemeContext)   // Access context values here 
     // State to determine if the user is logged in
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // Assuming user is logged out by default
+    const [isLoggedIn,  removeToken, isAdmin ] = useAuth(); // 👈 use values from context
+
     const [searchQuery, setSearchQuery] = useState(''); // Initialize searchQuery state
 
 
-    const{darkMode, toggleDarkMode}= useContext(ThemeContext)   // Access context values here 
     const navigate = useNavigate();
 
-    // Handle login/logout actions
-    const handleLogin = () => {
-      setIsLoggedIn(true);
-    };
-  
-    const handleLogout = () => {
-      setIsLoggedIn(false);
+    const location = useLocation();
 
-    };
+    const hideAuthButtons = ["/login", "/register"].includes(location.pathname)    // ✅ hide login/logout buttons on register and login routes
+
+    // // Handle login/logout actions
+    // const handleLogin = () => {
+    //   setIsLoggedIn(true);
+    // };
+  
+    // const handleLogout = () => {
+    //   setIsLoggedIn(false);
+
+    // };
 
         // Handle search input change
         const handleSearchChange = (e) => {
@@ -87,9 +93,7 @@ function Navbar({isDarkMode}) {
             </Link>
           </li>
         )}
-        {/* <li className="nav-item">
-              <Link className="nav-link"  to="/register">Register</Link>
-            </li> */}
+        
             
             <li className="nav-item">
               <Link className="nav-link"  to="/admin"><AdminPanelSettingsIcon/></Link>
