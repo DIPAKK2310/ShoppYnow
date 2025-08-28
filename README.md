@@ -84,7 +84,7 @@ JWT_SECRET=your_jwt_secret
 For the frontend (if needed), create a `.env` in `client/`:
 
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:4000/api
 ```
 
 #### 4. Run the Application
