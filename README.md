@@ -46,8 +46,8 @@ A modern, full-featured e-commerce application built using the MERN stack with a
 #### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/DIPAKK2310/ShoppYnow.git
+cd ShoppYnow
 ```
 
 #### 2. Install dependencies
@@ -55,7 +55,7 @@ cd your-repo-name
 **Frontend:**
 
 ```bash
-cd client
+cd frontend/vite-project
 npm install
 # or
 yarn install
@@ -64,7 +64,7 @@ yarn install
 **Backend:**
 
 ```bash
-cd ../server
+cd backend
 npm install
 # or
 yarn install
@@ -92,18 +92,18 @@ VITE_API_URL=http://localhost:5000/api
 **Backend:**
 
 ```bash
-cd server
+cd backend
 npm run dev
 ```
 
 **Frontend:**
 
 ```bash
-cd client
+cd forntend/vite-project
 npm run dev
 ```
 
-The frontend will run on `http://localhost:5173` (default Vite port) and the backend on `http://localhost:5000` (default Express port).
+The frontend will run on `http://localhost:5173` (default Vite port) and the backend on `http://localhost:4000` (default Express port).
 
 ---
 
@@ -111,8 +111,8 @@ The frontend will run on `http://localhost:5173` (default Vite port) and the bac
 
 ```
 ecommerce-mern/
-├── client/        # Frontend (Vite + React)
-├── server/        # Backend (Node + Express + MongoDB)
+├── frontend/vite-project/        # Frontend (Vite + React)
+├── backend/        # Backend (Node + Express + MongoDB)
 └── README.md
 ```
 
