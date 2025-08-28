@@ -25,7 +25,7 @@ router.get("/protected", authenticateAdmin, async (req, res) => {
 
 // @desc Get All Users (Admin Only)
 // @route GET /api/admin/users
-router.get('/admins', authenticateAdmin, async (req, res) => {
+router.get('/users', authenticateAdmin, async (req, res) => {
   try {
     const admins = await Admin.find().select('-password');//Exclude password
     res.status(200).json(admins);
@@ -37,7 +37,7 @@ router.get('/admins', authenticateAdmin, async (req, res) => {
 
 // @desc Delete User by ID
 // @route DELETE /api/admin/users/:userId
-router.delete('/admins/:adminId', authenticateAdmin, async (req, res) => {
+router.delete('/users/:userId', authenticateAdmin, async (req, res) => {
   try {
     const deleteAdmin = await Admin.findByIdAndDelete(req.params.adminId);
     if (!deleteAdmin) {
@@ -51,7 +51,7 @@ router.delete('/admins/:adminId', authenticateAdmin, async (req, res) => {
 
 // @desc Update User by ID
 // @route PUT /api/admin/users/:userId
-router.put('/admins/:adminId', authenticateAdmin, async (req, res) => {
+router.put('/userss/:userId', authenticateAdmin, async (req, res) => {
   try {
     const { username, email,} = req.body;
 

@@ -20,6 +20,7 @@ import ProductsPages from './pages/ProductsPages';
 import AdminDashboardLogin from './components/AdminDashboardLogin';
 import { useState, useEffect } from 'react';
   import {Toaster} from 'react-hot-toast'; 
+import { AuthProvider } from './store/AuthContext';
 
 function App() {
   // Check if the user is authenticated and role is admin
@@ -38,6 +39,8 @@ function App() {
     <Provider store={store}>
       <ThemeProvider>
         <BrowserRouter>
+        <AuthProvider>
+
           <Navbar />
           <Routes>
             {/* Public Routes */}
@@ -65,6 +68,7 @@ function App() {
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
           <Toaster  position="top-right" autoClose={3000} />
+        </AuthProvider>
         </BrowserRouter>
       </ThemeProvider>
     </Provider>

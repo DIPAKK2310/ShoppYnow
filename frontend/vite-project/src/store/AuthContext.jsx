@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import {  useNavigate } from 'react-router-dom';
 
 
 // Create the AuthContext to provide authentication data globally
@@ -10,9 +11,11 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const[user, setUser]= useState(null)
   const[loading, setLoading]=useState(true)
-   const[isAdmin,setIsAdmin]=useState(false)
-
-     const isLoggedIn = !!token; // ✅ derived from token
+  const[isAdmin,setIsAdmin]=useState(false)
+  
+  const isLoggedIn = !!token; // ✅ derived from token
+  let navigate = useNavigate(); //Add this
+     
 
 
   const fetchUserData = async () => {
@@ -50,6 +53,7 @@ export const AuthProvider = ({ children }) => {
     setToken(null); //Update state to remove token
     setUser(null); //Reset user Data
     setIsAdmin(false);
+    navigate("/login")
     // setLoading(false);
    
   };
@@ -60,7 +64,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       setLoading(false)
     }
-  },[]);
+  },[token]);
 
 
 

@@ -11,7 +11,7 @@ import { useAuth } from '../store/AuthContext';
 function Navbar({isDarkMode}) {
   const{darkMode, toggleDarkMode}= useContext(ThemeContext)   // Access context values here 
     // State to determine if the user is logged in
-    const [isLoggedIn,  removeToken, isAdmin ] = useAuth(); // 👈 use values from context
+    const {isLoggedIn,  removeToken, isAdmin } = useAuth(); // 👈 use values from context
 
     const [searchQuery, setSearchQuery] = useState(''); // Initialize searchQuery state
 
@@ -27,10 +27,9 @@ function Navbar({isDarkMode}) {
     //   setIsLoggedIn(true);
     // };
   
-    // const handleLogout = () => {
-    //   setIsLoggedIn(false);
-
-    // };
+   const handleLogout = () => {
+    removeToken();
+   };
 
         // Handle search input change
         const handleSearchChange = (e) => {
@@ -76,23 +75,21 @@ function Navbar({isDarkMode}) {
             
             
            {/* Conditionally render Login or Logout based on the isLoggedIn state */}
-        {!isLoggedIn ? (
-          <li className="nav-item">
-            <Link className="nav-link"  to="/login" onClick={handleLogin}>
-              Login
-            </Link>
-          </li>
-        ) : (
-          <li className="nav-item" >
-            <Link
-              className="btn btn-danger" 
-              to="/logout"
-              onClick={handleLogout} // Handle logout
-            >
-              Logout
-            </Link>
-          </li>
-        )}
+   
+            {/* 👤 Auth Buttons */}
+            {!hideAuthButtons && (
+              !isLoggedIn ? (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">Login</Link>
+                </li>
+              ) : (
+                <li className="nav-item">
+                  <button className="btn btn-danger" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </li>
+              )
+            )}
         
             
             <li className="nav-item">

@@ -37,7 +37,7 @@ export const HeroSection = () => {
             crafted for those who appreciate timeless elegance.
           </p>
           <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-            <button className="btn bg- btn-lg px-4 py-3 rounded-pill">
+            <button className="btn  btn-lg px-4 py-3 rounded-pill">
               Shop Collection
             </button>
             <button className="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">

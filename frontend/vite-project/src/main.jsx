@@ -7,7 +7,7 @@ import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
 import { AuthProvider } from './store/AuthContext.jsx';
 
 createRoot(document.getElementById('root')).render(
-  <AuthProvider>
+  <StrictMode>
     <App />
-  </AuthProvider>,
+  </StrictMode>,
 )

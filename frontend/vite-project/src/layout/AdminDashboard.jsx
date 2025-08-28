@@ -29,7 +29,7 @@ const AdminDashboard = () => {
       if (!token) return;
 
       try {
-        const response = await axios.get("http://localhost:5000/api/auth/admin", {
+        const response = await axios.get("http://localhost:4000/api/auth/admin", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setMessage(response.data.message);
