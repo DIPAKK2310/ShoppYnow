@@ -8,6 +8,7 @@ const AdminDashboard = () => {
 
   const { darkMode } = useTheme();  // Get darkMode state from context
   const [users, setUsers] = useState([]); // Assuming you need users data
+  const [message, setMessage] =useState('')
   useEffect(()=>{
     const fetchApi=async()=>{
        try {

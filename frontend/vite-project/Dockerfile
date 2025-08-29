@@ -1,4 +1,4 @@
-# Stage 1: Build the React app
+# Stage 1: Build Vite app
 FROM node:18-alpine AS build
 
 # Set working directory
@@ -16,7 +16,7 @@ COPY . .
 # Build the production-ready app
 RUN npm run build
 
-
+#----------------
 # Stage 2: Serve with nginx
 FROM nginx:alpine
 

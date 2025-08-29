@@ -80,7 +80,7 @@ export default function Cart() {
                           </div>
                         </div>
                         <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                          <p><strong>{value.title}</strong></p>
+                          <p><strong>{value.name}</strong></p>
                           <p>Color: red</p>
                           <p>Size: M</p>
                           <button

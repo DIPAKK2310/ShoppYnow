@@ -23,10 +23,10 @@ export default function AddProduct({ onProductAdded }) {
   // Handle adding a new product
   const handleAddProduct = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/api/product/Addproducts', newProduct);
+      const response = await axios.post('http://localhost:4000/api/products', newProduct);
       if (response.data.message === 'Product added') {
         onProductAdded(response.data.product); // Call the parent function to update the list
-        setNewProduct({ name: '', description: '', price: '',category:'',imageUrl:'',quantity:'', }); // Clear the form
+        setNewProduct({ name: '', description: '', price: '',category:'',imageUrl:'',quantity:1 }); // Clear the form
         console.log('Product added successfully');
       }
     } catch (error) {

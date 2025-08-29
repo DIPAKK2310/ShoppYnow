@@ -34,7 +34,7 @@ app.use(express.json())
 // Routes
     app.use("/api/auth",authRouter)
     app.use("/api/admin",adminRouter)
-    app.use("/api/product",productRouter)
+    app.use("/api/products",productRouter)
 
     app.get('/',(req,res)=>{
         res.status(200).send("Backend is running🚀")
