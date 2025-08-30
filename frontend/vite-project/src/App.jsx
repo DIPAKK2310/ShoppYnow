@@ -67,7 +67,7 @@ function App() {
             {/* Default Redirect */}
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
-          <Toaster  position="top-right" autoClose={3000} />
+          <Toaster  position="top-right" toastOptions={{duration: 2000}} />
         </AuthProvider>
         </BrowserRouter>
       </ThemeProvider>
