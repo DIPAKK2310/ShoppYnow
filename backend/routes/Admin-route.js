@@ -51,7 +51,7 @@ router.delete('/users/:userId', authenticateAdmin, async (req, res) => {
 
 // @desc Update User by ID
 // @route PUT /api/admin/users/:userId
-router.put('/userss/:userId', authenticateAdmin, async (req, res) => {
+router.put('/users/:userId', authenticateAdmin, async (req, res) => {
   try {
     const { username, email,} = req.body;
 
