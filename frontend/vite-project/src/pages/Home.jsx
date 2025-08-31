@@ -21,15 +21,15 @@ function Home() {
   
     {/* hero seection */}
     <HeroSection/>
+    {
+        user?<h1 className='text-white'>Welcome {user.username}</h1>:<h1 className='text-white'>Guest login</h1>
+      }
+      <h1>Welcome to the Home Page</h1>
     <Shoes/>
     <header className='px-5 py-5  '>
    
     <main>
 
-    {
-        user?<h1 className='text-white'>Welcome {user.username}</h1>:<h1 className='text-white'>Guest login</h1>
-      }
-      <h1>Welcome to the Home Page</h1>
 
       <section>
 
