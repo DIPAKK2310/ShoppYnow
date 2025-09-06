@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addcart } from '../redux/Slice';
 import axios from 'axios';
+import Footer from '../components/Footer';
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -89,6 +90,7 @@ export default function ProductsPage() {
   };
 
   return (
+    <main>
     <div className="container-fluid">
       <h4 className="ms-5">Products</h4>
 
@@ -258,5 +260,10 @@ export default function ProductsPage() {
         </div>
       </div>
     </div>
+<Footer/>
+</main>
+
+
+
   );
 }
