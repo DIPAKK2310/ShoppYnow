@@ -133,6 +133,56 @@ ecommerce-mern/
 *(You may expand this list to match your implementation.)*
 
 ---
+## Authentication Flow
+
+```mermaid
+    sequenceDiagram
+        participant U as User
+        participant FE as Frontend (React)
+        participant API as Backend (Express)
+        participant DB as MongoDB
+        participant S as Session Store
+
+        %% Signup
+        U->>FE: Fill signup form
+        FE->>API: POST /signup (email, password)
+        API->>DB: Save user credentials (hashed password)
+        DB-->>API: User created
+        API-->>FE: Signup success
+
+        %% Login
+        U->>FE: Enter email & password
+        FE->>API: POST /login
+        API->>DB: Verify credentials
+        alt Valid credentials
+            DB-->>API: User found
+            API->>S: Create session for user
+            S-->>API: Session ID
+            API-->>FE: Set-Cookie (sessionId)
+            FE-->>U: Redirect to dashboard
+        else Invalid credentials
+            DB-->>API: No match
+            API-->>FE: Error (401 Unauthorized)
+            FE-->>U: Show "Invalid login"
+        end
+
+        %% Access Protected Page
+        U->>FE: Request protected page
+        FE->>API: GET /dashboard (with sessionId cookie)
+        API->>S: Validate sessionId
+        alt Session valid
+            S-->>API: OK
+            API->>DB: Fetch user data
+            DB-->>API: Data
+            API-->>FE: Return data
+            FE-->>U: Show dashboard
+        else Session invalid/expired
+            S-->>API: Invalid
+            API-->>FE: 403 Forbidden
+            FE-->>U: Redirect to login
+        end
+
+```
 
 ## Contributing
 
