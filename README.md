@@ -2,6 +2,19 @@
 
 A modern, full-featured e-commerce application built using the MERN stack with a Vite-powered React frontend and an Express/Node.js backend connected to MongoDB.
 
+## ShoppYnow Authentication System design
+
+```mermaid
+  flowchart LR
+    U[User Browser] --> FE[React Frontend]
+    FE --> API[Express Backend]
+    API --> DB[(MongoDB)]
+    API --> JWT[JWT Service]
+    API --> S[(Session/Cache e.g. Redis - optional for refresh tokens)]
+
+
+```
+
 ## Features
 
 - **User Authentication**: Register, login, and manage accounts securely.
@@ -115,6 +128,7 @@ ecommerce-mern/
 ├── backend/        # Backend (Node + Express + MongoDB)
 └── README.md
 ```
+
 
 ---
 
