@@ -127,6 +127,7 @@ ecommerce-mern/
 ├── frontend/vite-project/        # Frontend (Vite + React)
 ├── backend/        # Backend (Node + Express + MongoDB)
 └── README.md
+└── docker-compose
 ```
 
 
