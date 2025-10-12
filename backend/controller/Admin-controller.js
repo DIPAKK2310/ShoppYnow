@@ -1,7 +1,8 @@
 // Fixed Admin Controller (controllers/Admin-controller.js)
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const Admin = require('../models/Admin-model.js'); // Import your User model
+const User = require('../models/Auth-user');
+const { get } = require('mongoose');
 const secretKey = process.env.JWT_SECRET_KEY || '12345';
 
 // @desc Admin login controller
@@ -10,9 +11,7 @@ const adminLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    // Don't log password for security
-    console.log('👉 Admin login attempt for:', email);
-
+    
     // Input validation
     if (!email || !password) {
       return res.status(400).json({ 
@@ -20,13 +19,14 @@ const adminLogin = async (req, res) => {
         message: 'Email and password are required' 
       });
     }
-console.log("Login body received", req.body)
-    // Find user in database with admin role
-    const adminUser = await Admin.findOne({ 
+
+
+    const admin = await User.findOne({ 
       email: email.toLowerCase(),
+      role: 'admin'
     });
 
-    if (!adminUser) {
+    if (!admin) {
       return res.status(401).json({ 
         success: false,
         message: 'Invalid admin credentials' 
@@ -34,7 +34,7 @@ console.log("Login body received", req.body)
     }
 
     // Compare password with the hashed password in database
-    const isMatch = await bcrypt.compare(password, adminUser.password);
+    const isMatch = await bcrypt.compare(password, admin.password);
     
     if (!isMatch) {
       return res.status(401).json({ 
@@ -45,17 +45,17 @@ console.log("Login body received", req.body)
 
     // Generate JWT token
   
-    const token = adminUser.generateToken(); // ✅ now uses Admin model method
+    const token = admin.generateToken(); // ✅ now uses Admin model method
 
     res.status(200).json({
       success: true,
       message: '🟢 Admin logged in successfully',
       token,
       admin: {
-        id: adminUser._id,
-        username: adminUser.username,
-        email: adminUser.email,
-        role: adminUser.role
+        id: admin._id,
+        username: admin.username,
+        email: admin.email,
+        role: admin.role
       }
     });
 
@@ -68,4 +68,16 @@ console.log("Login body received", req.body)
   }
 };
 
-module.exports = {adminLogin};
+
+// Example: Get all users
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find().select('-password');
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+module.exports = {adminLogin, getAllUsers};

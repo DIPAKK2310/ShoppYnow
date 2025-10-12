@@ -25,6 +25,11 @@ const secretKey = process.env.JWT_SECRET_KEY
         minlength:6,
         
     },
+    role:{
+      type:String,
+      enum:['user','admin'],
+      default:'user',
+    }
    
 
  }, {timestamps: true});
@@ -38,9 +43,9 @@ userSchema.methods.generateToken = async function (){
     try {
       
       return jwt.sign({
-        userId:this._id.toString(),
+        id:this._id.toString(),
         email:this.email,
-        isUser:true,
+        role:this.role
       },
     secretKey,{expiresIn:'10h'}
     )
