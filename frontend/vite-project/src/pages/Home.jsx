@@ -7,6 +7,7 @@ import { Shoes } from "../components/Shoes";
 
 import { Container } from "react-bootstrap";
 import Testimonials from "../components/Testimonials";
+import Newsletter from "../components/NewsLetter";
 
 function Home() {
   const { user } = useAuth();
@@ -20,6 +21,7 @@ function Home() {
 
       <Carousal />
       <Testimonials/>
+      <Newsletter/>
 
       {/* FOOTER */}
       <Footer />
