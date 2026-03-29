@@ -1,55 +1,51 @@
+import { useAuth } from "../store/AuthContext";
 
-import { useAuth } from '../store/AuthContext';
+import Footer from "../components/Footer";
+import Carousal from "../components/Carousal";
+import HeroSection from "../components/HeroSection";
+import { Shoes } from "../components/Shoes";
 
-import Footer from '../components/Footer';
-import Carousal from '../components/Carousal';
-import HeroSection from '../components/HeroSection.jsx';
-import { Shoes } from '../components/Shoes';
-
-
-
-
+import { Container } from "react-bootstrap";
 
 function Home() {
-
-
-
-  const {user}=useAuth()
+  const { user } = useAuth();
 
   return (
     <>
-  
-    {/* hero seection */}
-    <HeroSection/>
-    {
-        user?<h1 className='text-white'>Welcome {user.username}</h1>:<h1 className='text-white'>Guest login</h1>
-      }
-      <h1>Welcome to the Home Page</h1>
-    <Shoes/>
-    <header className='px-5 py-5  '>
-   
-    <main>
+      {/* HERO SECTION */}
+      <HeroSection />
 
+      {/* MAIN CONTENT */}
+      <main>
+        <Container className="py-5">
 
-      <section>
+          {/* USER GREETING */}
+          <div className="mb-4 text-white">
+            {user ? (
+              <h4>Welcome {user.username}</h4>
+            ) : (
+              <h4>Guest Login</h4>
+            )}
+          </div>
 
-      {/* Carousal Section */}
-      <section className='my-3 mx-5'>
-        <Carousal/>
-        </section>
-      
-      </section>
+          {/* PAGE TITLE */}
+          <h2 className="mb-4">Welcome to the Home Page</h2>
 
+          {/* SHOES SECTION */}
+          <section className="mb-5">
+            <Shoes />
+          </section>
 
+          {/* CAROUSEL SECTION */}
+          <section className="mb-5">
+            <Carousal />
+          </section>
 
-  </main>
-  {/* main-end */}
-  </header>
-    {/* Footer section */}
-      <footer >
-        <Footer/>
-      </footer>
+        </Container>
+      </main>
 
+      {/* FOOTER */}
+      <Footer />
     </>
   );
 }
