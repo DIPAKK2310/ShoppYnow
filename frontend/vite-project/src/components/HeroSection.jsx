@@ -1,77 +1,106 @@
-import React from 'react'
-import HeroImage from '../assets/HeroImage.png'
+import { motion } from "framer-motion";
+import { Container, Button } from "react-bootstrap";
+import { LuArrowRight, LuShoppingBag  } from "react-icons/lu";
+import heroBg from "../assets/hero-bg.jpg";
 
-
-export const HeroSection = () => {
+const HeroSection = () => {
   return (
-   <section className="position-relative d-flex align-items-center justify-content-center overflow-hidden" style={{ minHeight: "90vh" }}>
-      {/* Background Image + Overlay */}
-      <div className="position-absolute top-0 start-0 w-100 h-100">
-        <div
-          className="w-100 h-100"
-          style={{
-            backgroundImage: `url(${HeroImage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: "brightness(0.9)",
-            position: "relative",
-          }}
-        >
-          <div
-            className="position-absolute top-0 start-0 w-100 h-100"
-            // style={{
-            //   background: "linear-gradient(to right, rgba(13,110,253,0.8), rgba(13,110,253,0.6), transparent)",
-            // }}
-          />
-        </div>
-      </div>
+    <section
+      className="position-relative w-100 vh-100 overflow-hidden"
+      style={{ backgroundColor: "#000" }}
+    >
+      {/* Background Image */}
+      <img
+        src={heroBg}
+        alt="Luxury fashion collection"
+        className="position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
+      />
+
+      {/* Overlay */}
+      <div
+        className="position-absolute top-0 start-0 w-100 h-100"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(0,0,0,0.7), rgba(0,0,0,0.3))",
+        }}
+      />
 
       {/* Content */}
-      <div className="position-relative z-1 container text-center text-white px-3">
-        <div className="mx-auto" style={{ maxWidth: "900px" }}>
-          <h1 className="display-4 fw-bold mb-3" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}>
-            Luxury Redefined
-          </h1>
-          <p className="lead mb-4 text-white-50" style={{ fontSize: "1.25rem" }}>
-            Discover our exclusive collection of premium fashion and accessories,
-            crafted for those who appreciate timeless elegance.
-          </p>
-          <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-            <button className="btn  btn-lg px-4 py-3 rounded-pill">
-              Shop Collection
-            </button>
-            <button className="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">
-              View Lookbook
-            </button>
+      <div className="position-relative d-flex align-items-center vh-100 text-white">
+        <Container>
+          <div style={{ maxWidth: "600px" }}>
+            
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-uppercase fw-medium mb-3"
+              style={{ letterSpacing: "0.3em", color: "#f59e0b" }}
+            >
+              New Collection 2026
+            </motion.p>
+
+            {/* Heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="fw-light mb-4"
+              style={{
+                fontSize: "clamp(3rem, 6vw, 5rem)",
+                lineHeight: "1.1",
+              }}
+            >
+              Redefine <br />
+              <span style={{ fontStyle: "italic", color: "#f59e0b" }}>
+                Your Style
+              </span>
+            </motion.h1>
+
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="mb-4"
+              style={{ fontSize: "1.1rem", color: "#ddd", maxWidth: "450px" }}
+            >
+              Discover curated pieces crafted for those who demand elegance
+              without compromise. Premium materials, timeless design.
+            </motion.p>
+
+            {/* Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="d-flex flex-wrap gap-3"
+            >
+              <Button
+                variant="warning"
+                size="lg"
+                className="d-flex align-items-center gap-2 px-4 py-2"
+              >
+                <LuShoppingBag  size={20} />
+                Shop Now
+              </Button>
+
+              <Button
+                variant="outline-light"
+                size="lg"
+                className="d-flex align-items-center gap-2 px-4 py-2"
+              >
+                Explore
+                <LuArrowRight size={20} />
+              </Button>
+            </motion.div>
+
           </div>
-        </div>
+        </Container>
       </div>
-
-      {/* Decorative bounce indicator */}
-      <div
-        className="position-absolute bottom-0 start-50 translate-middle-x mb-4"
-        style={{ animation: "bounce 2s infinite" }}
-      >
-        <div
-          style={{
-            width: "6px",
-            height: "40px",
-            backgroundColor: "rgba(255,255,255,0.5)",
-            borderRadius: "999px",
-          }}
-        />
-      </div>
-
-      {/* Inline styles for bounce (could go into CSS file) */}
-      <style>{`
-        @keyframes bounce {
-          0%, 100% { transform: translate(-50%, 0); }
-          50% { transform: translate(-50%, -10px); }
-        }
-      `}</style>
     </section>
-  )
-}
-
+  );
+};
 
 export default HeroSection;
