@@ -1,110 +1,154 @@
-import React, { useContext, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ThemeContext } from '../context/ThemContext';
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ThemeContext } from "../context/ThemContext";
 import { IoIosSunny } from "react-icons/io";
-import { FaMoon } from "react-icons/fa6";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import { useAuth } from '../store/AuthContext';
+import { FaMoon, FaMagnifyingGlass } from "react-icons/fa6";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import { useAuth } from "../store/AuthContext";
 
-function Navbar({isDarkMode}) {
-  const{darkMode, toggleDarkMode}= useContext(ThemeContext)   // Access context values here 
-    // State to determine if the user is logged in
-    const {isLoggedIn,  removeToken, isAdmin } = useAuth(); // 👈 use values from context
+function Navbar() {
+  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
 
-    const [searchQuery, setSearchQuery] = useState(''); // Initialize searchQuery state
+  const { isLoggedIn, removeToken, isAdmin, user } = useAuth();
 
+  const [searchQuery, setSearchQuery] = useState("");
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const location = useLocation();
+  const hideAuthButtons = ["/login", "/register"].includes(
+    location.pathname
+  );
 
-    const hideAuthButtons = ["/login", "/register"].includes(location.pathname)    // ✅ hide login/logout buttons on register and login routes
-
-    // // Handle login/logout actions
-    // const handleLogin = () => {
-    //   setIsLoggedIn(true);
-    // };
-  
-   const handleLogout = () => {
+  const handleLogout = () => {
     removeToken();
-   };
+  };
 
-        // Handle search input change
-        const handleSearchChange = (e) => {
-          setSearchQuery(e.target.value);
-      };
-  
-      // Handle search form submission (navigate to the search results page)
-      const handleSearchSubmit = (e) => {
-          e.preventDefault();
-          if (searchQuery.trim()) {
-              navigate(`/search?query=${searchQuery}`); // Navigate to the search results page with query params
-          }
-      };
-  
-    
-   
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?query=${searchQuery}`);
+    }
+  };
+
   return (
-    <nav className={`navbar navbar-expand-lg ${darkMode?'navbar-dark bg-dark':'navbar-light bg-light'}`} >
-      <div className="container ">
-        <Link className="navbar-brand" to="/">ShoppYnow</Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <nav
+      className={`navbar navbar-expand-lg ${
+        darkMode ? "navbar-dark bg-dark" : "navbar-light bg-light"
+      }`}
+    >
+      <div className="container">
+
+        {/* LOGO */}
+        <Link className="navbar-brand" to="/">
+          ShoppYnow
+        </Link>
+
+        {/* TOGGLER */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
+
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-5">
-          <li className='nav-item '>
-            <form className='d-flex'style={{width:'35rem'}} onSubmit={handleSearchSubmit}>
-              <input
-                  className="form-control me-5 w-100 w-lg-auto"
-                  
+
+          {/* LEFT SIDE */}
+          <ul className="navbar-nav me-auto align-items-center gap-3">
+
+            {/* SEARCH */}
+            <li className="nav-item">
+              <form
+                className="d-flex"
+                style={{ width: "22rem" }}
+                onSubmit={handleSearchSubmit}
+              >
+                <input
+                  className="form-control me-2"
                   type="search"
-                  placeholder="...Search products"
-                  aria-label="Search"
+                  placeholder="Search products..."
                   value={searchQuery}
                   onChange={handleSearchChange}
-              />
-               <button className="btn btn-outline-success" type="submit"><FaMagnifyingGlass/></button>
-            </form>
-          </li>
-          <li className="nav-item">
-              <Link className="nav-link"  to="/ProductsPages">Products</Link>
+                />
+                <button className="btn btn-outline-success" type="submit">
+                  <FaMagnifyingGlass />
+                </button>
+              </form>
             </li>
-            
-            
-           {/* Conditionally render Login or Logout based on the isLoggedIn state */}
-   
-            {/* 👤 Auth Buttons */}
+
+            {/* PRODUCTS */}
+            <li className="nav-item">
+              <Link className="nav-link" to="/ProductsPages">
+                Products
+              </Link>
+            </li>
+
+          </ul>
+
+          {/* RIGHT SIDE */}
+          <ul className="navbar-nav align-items-center gap-3">
+
+            {/* 👋 USER / GUEST */}
+            <li className="nav-item text-white">
+              {isLoggedIn
+                ? `👋 Welcome, ${user?.username || "User"}`
+                : "👋 Welcome, Guest"}
+            </li>
+
+            {/* AUTH BUTTONS */}
             {!hideAuthButtons && (
               !isLoggedIn ? (
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login">Login</Link>
+                  <Link className="btn btn-outline-light" to="/login">
+                    Login
+                  </Link>
                 </li>
               ) : (
                 <li className="nav-item">
-                  <button className="btn btn-danger" onClick={handleLogout}>
+                  <button
+                    className="btn btn-danger"
+                    onClick={handleLogout}
+                  >
                     Logout
                   </button>
                 </li>
               )
             )}
-        
-            
+
+            {/* ADMIN */}
+            {isAdmin && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/admin">
+                  <AdminPanelSettingsIcon />
+                </Link>
+              </li>
+            )}
+
+            {/* CART */}
             <li className="nav-item">
-              <Link className="nav-link"  to="/admin"><AdminPanelSettingsIcon/></Link>
+              <Link className="nav-link" to="/cart">
+                <ShoppingCartIcon />
+              </Link>
             </li>
+
+            {/* THEME TOGGLE */}
             <li className="nav-item">
-              <Link className="nav-link"  to="/cart"><ShoppingCartIcon/></Link>
-            </li>
-                <button
-                className='btn btn-light py-1'
+              <button
+                className="btn btn-light py-1"
                 onClick={toggleDarkMode}
-                >
-                    { isDarkMode ? <IoIosSunny/>:<FaMoon/>}
-          </button>
-           
+              >
+                {darkMode ? <IoIosSunny /> : <FaMoon />}
+              </button>
+            </li>
+
           </ul>
         </div>
       </div>
