@@ -6,6 +6,7 @@ import HeroSection from "../components/HeroSection";
 import { Shoes } from "../components/Shoes";
 
 import { Container } from "react-bootstrap";
+import Testimonials from "../components/Testimonials";
 
 function Home() {
   const { user } = useAuth();
@@ -15,34 +16,10 @@ function Home() {
       {/* HERO SECTION */}
       <HeroSection />
 
-      {/* MAIN CONTENT */}
-      <main>
-        <Container className="py-5">
+      <Shoes />
 
-          {/* USER GREETING */}
-          <div className="mb-4 text-white">
-            {user ? (
-              <h4>Welcome {user.username}</h4>
-            ) : (
-              <h4>Guest Login</h4>
-            )}
-          </div>
-
-          {/* PAGE TITLE */}
-          <h2 className="mb-4">Welcome to the Home Page</h2>
-
-          {/* SHOES SECTION */}
-          <section className="mb-5">
-            <Shoes />
-          </section>
-
-          {/* CAROUSEL SECTION */}
-          <section className="mb-5">
-            <Carousal />
-          </section>
-
-        </Container>
-      </main>
+      <Carousal />
+      <Testimonials/>
 
       {/* FOOTER */}
       <Footer />
