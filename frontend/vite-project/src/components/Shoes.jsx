@@ -1,21 +1,10 @@
-import React, { useState } from 'react'
-import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap is importe
+import React from "react";
+import { motion } from "framer-motion";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { LuShoppingBag, LuHeart } from "react-icons/lu";
 
 export const Shoes = () => {
-
-  const [expandedCards, setExpandedCards] = useState({}); // Track expanded descriptions
-
-
-
-  const toggleDescription = (id) => {
-    setExpandedCards((prev) => ({
-      ...prev,
-      [id]: !prev[id], // Toggle based on shoe ID
-    }));
-  };
-
-    const ShoesData = [
-    
+  const ShoesData = [
       {
         id: 1,
         name: "Nike Air Max 270",
@@ -104,65 +93,69 @@ export const Shoes = () => {
         available_colors: ["Black", "White", "Blue"],
         image_url: "https://rukminim2.flixcart.com/image/612/612/xif0q/shoe/p/q/u/10-hd-56-b-10-hap-dan-black-white-and-black-original-imah7k6jfmdzmfda.jpeg?q=70"
       }
+  ];
 
+  return (
+    <section className="py-5"
+    style={{background: "var(--background)"}}
+    >
+      <Container>
 
+        {/* Header */}
+        <div className="text-center mb-5">
+          <h2 className="fw-light">Featured Shoes</h2>
+          <div className="divider"></div>
+        </div>
 
-    ]
-    return (
-      <>
-     <div className='container-fluid card'>
-     <div className='row justify-content-center'>
-     <div className=' text-center col-12  py-3'>
-     <h2>Featured_Products</h2>
-     </div>
-    
-          {
-            ShoesData.map(({id,image_url,category,name,description,full_description,price,button})=>{
-              const [showMore, setShowMore] = useState(false); // State to toggle full description
-
-
-
-        return(
-          <div 
-          key={id}
-          
-          className="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-4">
-          
-            
-              <div
-                className="card shadow-sm"
-                style={{
-                  height: showMore ? 'auto' : '30rem',
-                  width:'16rem', // Adjust height when showing more description
-                  transition: 'height 0.3s ease',
-                }}
+        {/* Grid */}
+        <Row className="g-4">
+          {ShoesData.map((shoe, index) => (
+            <Col key={shoe.id} xs={12} sm={6} md={4} lg={3}>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="product-card"
               >
-                <img src={image_url} alt={name} className="card-img-top" 
-                 style={{ maxHeight: '250px', objectFit: 'contain' }}
-                />
-                <div className="card-body">
-                  <p className="card-text">{category}</p>
-                  <h5 className="card-title">{name}</h5>
-                  <p className="card-text">
-                    {description}
-                    {expandedCards[id] && <span>{full_description}</span>}
-                    <button className="btn btn-secondary btn-sm mx-2 pt-2" onClick={toggleDescription}>
-                      {showMore ? 'Show Less' : 'Show More'}
-                    </button>
-                  </p>
-                </div>
-                <button href="#" className="btn btn-primary ps-1">
-                  ${price}
-                </button>
-              </div>
-            </div>
-            );
-          }
-        )}
-      </div>
-    </div>
-    </>
-    
 
-  )
-}
+                {/* Image */}
+                <div className="img-wrapper">
+                  <img
+                    src={shoe.image_url}
+                    alt={shoe.name}
+                    className="product-img"
+                  />
+
+                  {/* Overlay */}
+                  <div className="overlay">
+                    <div className="overlay-actions">
+                      <Button className="btn-add">
+                        <LuShoppingBag size={16} />
+                        Add
+                      </Button>
+
+                      <Button className="btn-like">
+                        <LuHeart size={16} />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Info */}
+                <div className="mt-3">
+                  <p className="category">{shoe.category}</p>
+                  <h5 className="product-title">{shoe.name}</h5>
+                  <p className="price">${shoe.price}</p>
+                </div>
+
+              </motion.div>
+
+            </Col>
+          ))}
+        </Row>
+
+      </Container>
+    </section>
+  );
+};
