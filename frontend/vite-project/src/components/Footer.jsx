@@ -87,7 +87,7 @@ const Footer = () => {
             © 2026 YourBrand. All rights reserved.
           </p>
           <p className="mb-0">
-            Designed with ❤️ by DK
+            Designed & Developed by DK
           </p>
         </div>
       </div>
