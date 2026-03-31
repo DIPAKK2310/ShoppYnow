@@ -3,9 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches: [main]
-    paths:
-      - "frontend/**"
-      - "backend/**"
+  workflow_dispatch:
 
 jobs:
   frontend:
