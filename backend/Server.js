@@ -21,7 +21,8 @@ const productRouter = require('./routes/Product-route')
 const app = express()
 // Storing express in app variable
 const corsSystem = {
-    origin: "http://localhost:5173",  //Front-end url
+    origin: ["http://localhost:5173"
+    ,"https://shopp-ynow.vercel.app/"], //Front-end url
     credentials:true,
     methods: ["GET", "POST", "PUT", "DELETE"],
 }
@@ -42,7 +43,7 @@ app.use(express.json())
  
 
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 4000
 
 
 
