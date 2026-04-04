@@ -22,7 +22,7 @@ const app = express()
 // Storing express in app variable
 const corsSystem = {
     origin: ["http://localhost:5173"
-    ,"https://shopp-ynow.vercel.app/"], //Front-end url
+    ,"https://shopp-ynow.vercel.app"], //Front-end url
     credentials:true,
     methods: ["GET", "POST", "PUT", "DELETE"],
 }
