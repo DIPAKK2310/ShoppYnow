@@ -227,9 +227,7 @@ export default function ProductsPage() {
               filterData.map((product, index) => (
                 <div
                   key={product.id || index}
-                  className="card col-12 col-md-6 col-lg-3 col-xl-2 mx-auto my-4"
-                  style={{ width: '16rem',height:'32rem' }}
-                  
+                  className="card col-12 col-md-6 col-lg-3 my-4 mb-4"                  
                 >
                   <img
                     src={product.imageUrl}
