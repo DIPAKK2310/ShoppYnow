@@ -23,6 +23,7 @@ export default function ProductsPage() {
     const fetchApi = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
+        console.log(response);
         setProducts(response.data);
         setFilteredData(response.data); // Initially, display all products
       } catch (error) {
