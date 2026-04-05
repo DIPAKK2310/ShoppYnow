@@ -5,13 +5,12 @@ import { addcart } from "../redux/Slice";
 import axios from "axios";
 import Footer from "../components/Footer";
 import SkeletonCard from "../components/ui/SkeletonCard.jsx";
+import { useQuery } from '@tanstack/react-query';
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState([]);
   const [filterData, setFilteredData] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedPrices, setSelectedPrices] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,22 +19,19 @@ export default function ProductsPage() {
     dispatch(addcart(value));
   };
 
-  useEffect(() => {
-    const fetchApi = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/products`,
-        );
-        setProducts(response.data);
-        setFilteredData(response.data); // Initially, display all products
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchApi();
-  }, []);
+  
+  const fetchProducts = async () => {
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
+    return res.data;
+  };
+  
+  const { data, isLoading } = useQuery({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+    staleTime: 1000 * 60 * 5, // 5 min cache
+  });
+  
+  const products = data || [];
 
   // Filter products based on selected categories and prices
   useEffect(() => {
@@ -224,7 +220,7 @@ export default function ProductsPage() {
           {/* Products */}
           <div className="products-container ps-5">
             <div className="row g-4">
-              {loading ? (
+              {isLoading ? (
                 Array(8)
                   .fill()
                   .map((_, i) => (
