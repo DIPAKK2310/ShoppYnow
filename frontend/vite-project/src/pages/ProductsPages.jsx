@@ -241,6 +241,7 @@ export default function ProductsPage() {
                     className="card-img-top"
                     style={{height:'15rem'}}
                     alt={product.title}
+                    loading='lazy'
                   />
                   <div className="card-body">
                     <h5 className="card-title">{product.name}</h5>
