@@ -1,11 +1,11 @@
 const SkeletonCard = () => {
   return (
-    <div className="card my-4 mb-4 h-100">
+    <div className="card my-4 mb-4 h-100 w-100">
       
       {/* Image (same height) */}
       <div
         className="placeholder-glow card-img-top"
-        style={{ height: "15rem" }}
+        style={{ height: "15rem",width: "18rem" }}
       >
         <span className="placeholder w-100 h-100"></span>
       </div>
