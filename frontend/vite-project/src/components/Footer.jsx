@@ -20,7 +20,7 @@ const Footer = () => {
 
           {/* Brand + Contact */}
           <div className="col-md-4">
-            <h4 className="fw-bold mb-3 text-warning">YourBrand</h4>
+            <h4 className="fw-bold mb-3 text-warning">ShoppYnow</h4>
             <p className="text-secondary small">
               Premium fashion & lifestyle products crafted with elegance and
               quality. Elevate your everyday style.
@@ -34,7 +34,7 @@ const Footer = () => {
                 <LuPhone /> +91 98765 43210
               </span>
               <span className="d-flex align-items-center gap-2 text-secondary">
-                <LuMail /> support@yourbrand.com
+                <LuMail /> support@ShoppYnow.com
               </span>
             </div>
           </div>
@@ -84,7 +84,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center small text-secondary">
           <p className="mb-0">
-            © 2026 YourBrand. All rights reserved.
+            © 2026 ShoppYnow. All rights reserved.
           </p>
           <p className="mb-0">
             Designed & Developed by DK
