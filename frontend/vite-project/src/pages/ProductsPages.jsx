@@ -96,7 +96,7 @@ export default function ProductsPage() {
 
   return (
     <main>
-      <div className="container-fluid">
+      <div className="container-fluid ">
         <h4 className="ms-5">Products</h4>
 
         <div className="d-flex">
@@ -238,8 +238,9 @@ export default function ProductsPage() {
                 filterData.map((product, index) => (
                   <div
                     key={product.id || index}
-                    className="card col-12 col-md-6 col-lg-3 my-4 mb-4"
+                    className="col-12 col-md-6 col-lg-3 my-4 mb-4"
                   >
+                     <div className="card h-100">
                     <img
                       src={product.imageUrl}
                       onClick={() => openPage(product)}
@@ -262,6 +263,7 @@ export default function ProductsPage() {
                       >
                         Add to Cart
                       </button>
+                    </div>
                     </div>
                   </div>
                 ))
