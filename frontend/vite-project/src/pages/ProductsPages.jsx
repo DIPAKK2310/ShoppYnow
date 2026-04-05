@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { addcart } from '../redux/Slice';
 import axios from 'axios';
 import Footer from '../components/Footer';
+import SkeletonCard from '../components/ui/SkeletonCard.jsx';
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -224,8 +225,9 @@ export default function ProductsPage() {
         {/* Products */}
         <div className="products-container ps-5">
           <div className="row">
-            {loading?(<h3>Loading products...</h3>
-            ):filterData.length === 0 ? (
+            {loading?
+            (Array(8).fill().map((_, i) => <SkeletonCard key={i} />
+          )):filterData.length === 0 ? (
               <p>No products found.</p> // Show message if no products match the filter
             ) : (
               filterData.map((product, index) => (
