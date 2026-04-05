@@ -223,7 +223,7 @@ export default function ProductsPage() {
 
           {/* Products */}
           <div className="products-container ps-5">
-            <div className="row">
+            <div className="row g-4">
               {loading ? (
                 Array(8)
                   .fill()
