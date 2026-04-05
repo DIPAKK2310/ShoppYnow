@@ -1,27 +1,27 @@
 const SkeletonCard = () => {
   return (
-    <div className="card my-4 mb-4">
+    <div className="card my-4 mb-4 h-100">
       
-      {/* Image */}
-      <div className="placeholder-glow">
-        <div
-          className="placeholder w-100"
-          style={{ height: "15rem" }}
-        ></div>
+      {/* Image (same height) */}
+      <div
+        className="placeholder-glow card-img-top"
+        style={{ height: "15rem" }}
+      >
+        <span className="placeholder w-100 h-100"></span>
       </div>
 
       {/* Body */}
-      <div className="card-body">
+      <div className="card-body d-flex flex-column">
         
         {/* Title */}
         <div className="placeholder-glow mb-2">
-          <span className="placeholder col-6"></span>
+          <span className="placeholder col-8"></span>
         </div>
 
-        {/* Description */}
+        {/* Description (2 lines like real) */}
         <div className="placeholder-glow mb-2">
-          <span className="placeholder col-8"></span>
-          <span className="placeholder col-7"></span>
+          <span className="placeholder col-10 d-block mb-1"></span>
+          <span className="placeholder col-7 d-block"></span>
         </div>
 
         {/* Price */}
@@ -29,8 +29,8 @@ const SkeletonCard = () => {
           <span className="placeholder col-4"></span>
         </div>
 
-        {/* Button */}
-        <div className="placeholder-glow">
+        {/* Button (push to bottom like real card) */}
+        <div className="mt-auto">
           <span className="placeholder col-6 btn btn-primary disabled"></span>
         </div>
 
