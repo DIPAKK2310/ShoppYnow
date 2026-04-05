@@ -10,6 +10,7 @@ export default function ProductsPage() {
   const [filterData, setFilteredData] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedPrices, setSelectedPrices] = useState([]);
+  const [loading, setLoading] = useState(true)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,6 +28,8 @@ export default function ProductsPage() {
         setFilteredData(response.data); // Initially, display all products
       } catch (error) {
         console.log(error);
+      }finally{
+        setLoading(false)
       }
     };
     fetchApi();
@@ -221,7 +224,8 @@ export default function ProductsPage() {
         {/* Products */}
         <div className="products-container ps-5">
           <div className="row">
-            {filterData.length === 0 ? (
+            {loading?(<h3>Loading products...</h3>
+            ):filterData.length === 0 ? (
               <p>No products found.</p> // Show message if no products match the filter
             ) : (
               filterData.map((product, index) => (
