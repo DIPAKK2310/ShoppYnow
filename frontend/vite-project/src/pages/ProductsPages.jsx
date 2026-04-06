@@ -25,7 +25,7 @@ export default function ProductsPage() {
     return res.data;
   };
   
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['products'],
     queryFn: fetchProducts,
     staleTime: 1000 * 60 * 5, // 5 min cache
@@ -89,6 +89,18 @@ export default function ProductsPage() {
   const openPage = (x) => {
     navigate(`/productdetails/${x.category}/${x.id}`);
   };
+
+    if (isError) {
+    return (
+      <div className="text-center mt-5">
+        <h4>Something went wrong 😢</h4>
+        <p>{error.message}</p>
+        <button className="btn btn-primary" onClick={refetch}>
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   return (
     <main>
@@ -219,7 +231,9 @@ export default function ProductsPage() {
 
           {/* Products */}
           <div className="products-container ps-5">
+            
             <div className="row g-4">
+              
               {isLoading ? (
                 Array(8)
                   .fill()
