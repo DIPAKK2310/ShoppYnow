@@ -252,13 +252,16 @@ export default function ProductsPage() {
                           ? product.description[0]
                           : product.description || "No description available"}
                       </p>
-                      <p className="card-text">Price: ${product.price}</p>
+                      <div className="d-flex align-item-center justify-content-between">
+
+                      <span className="card-text">Price: ${product.price}</span>
                       <button
                         onClick={() => sendData(product)}
                         className="btn btn-primary"
-                      >
+                        >
                         Add to Cart
                       </button>
+                        </div>
                     </div>
                     </div>
                   </div>
