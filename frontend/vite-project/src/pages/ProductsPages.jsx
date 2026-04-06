@@ -224,7 +224,7 @@ export default function ProductsPage() {
                 Array(8)
                   .fill()
                   .map((_, i) => (
-                    <div key={i} className="col-12 col-md-6 col-lg-3">
+                    <div key={i} className="col-12 col-md-6 col-lg-3 mb-4">
                       <SkeletonCard />
                     </div>
                   ))
