@@ -105,7 +105,6 @@ export default function ProductsPage() {
   return (
     <main>
       <div className="container-fluid ">
-        <h4 className="ms-5">Products</h4>
 
         <div className="d-flex">
           {/* Sidebar */}
@@ -230,7 +229,7 @@ export default function ProductsPage() {
           </div>
 
           {/* Products */}
-          <div className="products-container ps-5">
+          <div className="products-container ps-5 pt-4">
             
             <div className="row g-4">
               
