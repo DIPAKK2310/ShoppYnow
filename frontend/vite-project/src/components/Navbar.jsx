@@ -49,8 +49,6 @@ function Navbar() {
 
   return (
     <>
-      {/* 🔥 TOP BAR */}
-
       {/* 🔥 NAVBAR */}
       <nav
         className={`navbar navbar-expand-lg sticky-top ${
@@ -74,6 +72,36 @@ function Navbar() {
             ShoppYnow
           </Link>
 
+
+          {/* MENU */}
+          <div className="collapse navbar-collapse d-flex align-items-end" id="navbarNav">
+
+            <ul className="navbar-nav mx-auto mt-3 mt-lg-0 gap-3">
+
+              <li className="nav-item">
+                <Link className="nav-link" to="/">
+                  Home
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/ProductsPages">
+                  Products
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/ProductsPages">
+                  About
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/ProductsPages">
+                  Contact
+                </Link>
+              </li>
+
+            </ul>
+
+            
           {/* RIGHT ICONS */}
           <div className="d-flex align-items-center gap-2">
 
@@ -121,20 +149,6 @@ function Navbar() {
               {darkMode ? <IoIosSunny /> : <FaMoon />}
             </button>
           </div>
-
-          {/* MENU */}
-          <div className="collapse navbar-collapse" id="navbarNav">
-
-            <ul className="navbar-nav me-auto mt-3 mt-lg-0">
-
-              <li className="nav-item">
-                <Link className="nav-link" to="/ProductsPages">
-                  Products
-                </Link>
-              </li>
-
-            </ul>
-
             {/* AUTH BUTTONS */}
             {!hideAuthButtons && (
               <div className="d-flex gap-2">
