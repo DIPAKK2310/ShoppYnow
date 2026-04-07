@@ -79,7 +79,7 @@ function Navbar() {
 
             {/* SEARCH TOGGLE */}
             <button
-              className="btn btn-link text-dark"
+              className={`btn btn-link ${darkMode ? "text-light" : "text-dark"}`}
               onClick={() => setSearchOpen(!searchOpen)}
             >
               <LuSearch size={18} />
@@ -104,7 +104,7 @@ function Navbar() {
 
             {/* CART */}
             <Link
-              className="btn btn-link text-dark position-relative"
+              className={`btn btn-link position-relative ${darkMode ? "text-light" : "text-dark"}`}
               to="/cart"
             >
               <LuShoppingBag size={18} />
