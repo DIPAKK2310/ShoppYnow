@@ -1,18 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../context/ThemContext";
 import { IoIosSunny } from "react-icons/io";
-import { FaMoon, FaMagnifyingGlass } from "react-icons/fa6";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { FaMoon } from "react-icons/fa6";
+import {
+  LuSearch,
+  LuShoppingBag,
+  LuHeart,
+  LuUser,
+  LuMenu,
+  LuX,
+} from "react-icons/lu";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useAuth } from "../store/AuthContext";
 
 function Navbar() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
-
   const { isLoggedIn, removeToken, isAdmin, user } = useAuth();
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,138 +29,163 @@ function Navbar() {
     location.pathname
   );
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const handleLogout = () => {
     removeToken();
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/search?query=${searchQuery}`);
+      setSearchOpen(false);
     }
   };
 
   return (
-    <nav
-      className={`navbar navbar-expand-lg ${
-        darkMode ? "navbar-dark bg-dark" : "navbar-light bg-light"
-      }`}
-    >
-      <div className="container">
+    <>
+      {/* 🔥 TOP BAR */}
 
-        {/* LOGO */}
-        <Link className="navbar-brand" to="/">
-          ShoppYnow
-        </Link>
+      {/* 🔥 NAVBAR */}
+      <nav
+        className={`navbar navbar-expand-lg sticky-top ${
+          darkMode ? "navbar-dark bg-dark" : "navbar-light bg-light"
+        } ${scrolled ? "shadow-sm" : ""}`}
+      >
+        <div className="container">
 
-        {/* TOGGLER */}
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+          {/* MOBILE TOGGLE */}
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <LuMenu size={20} />
+          </button>
 
-        <div className="collapse navbar-collapse" id="navbarNav">
+          {/* LOGO */}
+          <Link className="navbar-brand mx-auto fw-light" to="/">
+            ShoppYnow
+          </Link>
 
-          {/* LEFT SIDE */}
-          <ul className="navbar-nav me-auto align-items-center gap-3">
+          {/* RIGHT ICONS */}
+          <div className="d-flex align-items-center gap-2">
 
-            {/* SEARCH */}
-            <li className="nav-item">
-              <form
-                className="d-flex"
-                style={{ width: "22rem" }}
-                onSubmit={handleSearchSubmit}
-              >
-                <input
-                  className="form-control me-2"
-                  type="search"
-                  placeholder="Search products..."
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                />
-                <button className="btn btn-outline-success" type="submit">
-                  <FaMagnifyingGlass />
-                </button>
-              </form>
-            </li>
+            {/* SEARCH TOGGLE */}
+            <button
+              className="btn btn-link text-dark"
+              onClick={() => setSearchOpen(!searchOpen)}
+            >
+              <LuSearch size={18} />
+            </button>
 
-            {/* PRODUCTS */}
-            <li className="nav-item">
-              <Link className="nav-link" to="/ProductsPages">
-                Products
+            {/* USER */}
+            <div className="d-none d-sm-flex align-items-center">
+              <LuUser size={18} className="me-1" />
+              <small>
+                {isLoggedIn
+                  ? user?.username || "User"
+                  : "Guest"}
+              </small>
+            </div>
+
+            {/* ADMIN */}
+            {isAdmin && (
+              <Link className="btn btn-link text-dark" to="/admin">
+                <AdminPanelSettingsIcon />
               </Link>
-            </li>
+            )}
 
-          </ul>
+            {/* CART */}
+            <Link
+              className="btn btn-link text-dark position-relative"
+              to="/cart"
+            >
+              <LuShoppingBag size={18} />
+              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                3
+              </span>
+            </Link>
 
-          {/* RIGHT SIDE */}
-          <ul className="navbar-nav align-items-center gap-3">
+            {/* THEME */}
+            <button
+              className="btn btn-light py-1"
+              onClick={toggleDarkMode}
+            >
+              {darkMode ? <IoIosSunny /> : <FaMoon />}
+            </button>
+          </div>
 
-            {/* 👋 USER / GUEST */}
-            <li className="nav-item text-white">
-              {isLoggedIn
-                ? `👋 Welcome, ${user?.username || "User"}`
-                : "👋 Welcome, Guest"}
-            </li>
+          {/* MENU */}
+          <div className="collapse navbar-collapse" id="navbarNav">
+
+            <ul className="navbar-nav me-auto mt-3 mt-lg-0">
+
+              <li className="nav-item">
+                <Link className="nav-link" to="/ProductsPages">
+                  Products
+                </Link>
+              </li>
+
+            </ul>
 
             {/* AUTH BUTTONS */}
             {!hideAuthButtons && (
-              !isLoggedIn ? (
-                <li className="nav-item">
-                  <Link className="btn btn-outline-light" to="/login">
+              <div className="d-flex gap-2">
+                {!isLoggedIn ? (
+                  <Link className="btn btn-outline-primary" to="/login">
                     Login
                   </Link>
-                </li>
-              ) : (
-                <li className="nav-item">
+                ) : (
                   <button
                     className="btn btn-danger"
                     onClick={handleLogout}
                   >
                     Logout
                   </button>
-                </li>
-              )
+                )}
+              </div>
             )}
-
-            {/* ADMIN */}
-            {isAdmin && (
-              <li className="nav-item">
-                <Link className="nav-link" to="/admin">
-                  <AdminPanelSettingsIcon />
-                </Link>
-              </li>
-            )}
-
-            {/* CART */}
-            <li className="nav-item">
-              <Link className="nav-link" to="/cart">
-                <ShoppingCartIcon />
-              </Link>
-            </li>
-
-            {/* THEME TOGGLE */}
-            <li className="nav-item">
-              <button
-                className="btn btn-light py-1"
-                onClick={toggleDarkMode}
-              >
-                {darkMode ? <IoIosSunny /> : <FaMoon />}
-              </button>
-            </li>
-
-          </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* 🔥 SEARCH BAR */}
+      {searchOpen && (
+        <div className="border-top py-3 bg-light">
+          <div className="container">
+            <form onSubmit={handleSearchSubmit}>
+              <div className="position-relative">
+                <LuSearch className="position-absolute top-50 start-0 translate-middle-y ms-3" />
+
+                <input
+                  autoFocus
+                  type="text"
+                  className="form-control ps-5 pe-5"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setSearchOpen(false)}
+                  className="btn position-absolute top-50 end-0 translate-middle-y me-2"
+                >
+                  <LuX />
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
