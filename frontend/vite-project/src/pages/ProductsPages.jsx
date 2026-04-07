@@ -5,7 +5,7 @@ import { addcart } from "../redux/Slice";
 import axios from "axios";
 import Footer from "../components/Footer";
 import SkeletonCard from "../components/ui/SkeletonCard.jsx";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
 export default function ProductsPage() {
   const [filterData, setFilteredData] = useState([]);
@@ -19,18 +19,17 @@ export default function ProductsPage() {
     dispatch(addcart(value));
   };
 
-  
   const fetchProducts = async () => {
     const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
     return res.data;
   };
-  
+
   const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ['products'],
+    queryKey: ["products"],
     queryFn: fetchProducts,
     staleTime: 1000 * 60 * 5, // 5 min cache
   });
-  
+
   const products = data || [];
 
   // Filter products based on selected categories and prices
@@ -90,7 +89,7 @@ export default function ProductsPage() {
     navigate(`/productdetails/${x.category}/${x.id}`);
   };
 
-    if (isError) {
+  if (isError) {
     return (
       <div className="text-center mt-5">
         <h4>Something went wrong 😢</h4>
@@ -105,121 +104,74 @@ export default function ProductsPage() {
   return (
     <main>
       <div className="container-fluid ">
-
         <div className="d-flex">
           {/* Sidebar */}
-          <div className="sidebar ms-3">
-            <h5>Categories</h5>
-            <form>
-              <div className="checkbox-container">
+          <div className="col-md-3 p-3 border-end">
+            {/* Categories */}
+            <div className="mb-4">
+              <h6 className="text-uppercase  fw-bold mb-3">
+                Categories
+              </h6>
+
+              <div className="form-check">
                 <input
+                  className="form-check-input"
                   type="checkbox"
                   id="all"
                   checked={selectedCategories.includes("All")}
                   onChange={() => handleCategoryChange("All")}
                 />
-                <label htmlFor="all">All</label>
-              </div>
-              <div className="checkbox-container">
-                <input
-                  type="checkbox"
-                  id="men"
-                  checked={selectedCategories.includes("Men")}
-                  onChange={() => handleCategoryChange("Men")}
-                />
-                <label htmlFor="men">Men</label>
-              </div>
-              <div className="checkbox-container">
-                <input
-                  type="checkbox"
-                  id="women"
-                  checked={selectedCategories.includes("Women")}
-                  onChange={() => handleCategoryChange("Women")}
-                />
-                <label htmlFor="women">Women</label>
-              </div>
-              <div className="checkbox-container">
-                <input
-                  type="checkbox"
-                  id="shoes"
-                  checked={selectedCategories.includes("Shoes")}
-                  onChange={() => handleCategoryChange("Shoes")}
-                />
-                <label htmlFor="shoes">Shoes</label>
-              </div>
-              <div className="checkbox-container">
-                <input
-                  type="checkbox"
-                  id="electronics"
-                  checked={selectedCategories.includes("Electronic")}
-                  onChange={() => handleCategoryChange("Electronic")}
-                />
-                <label htmlFor="electronics">Electronics</label>
-              </div>
-              <div className="checkbox-container">
-                <input
-                  type="checkbox"
-                  id="beauty"
-                  checked={selectedCategories.includes("Beauty")}
-                  onChange={() => handleCategoryChange("Beauty")}
-                />
-                <label htmlFor="beauty">Beauty</label>
-              </div>
-            </form>
-            <br />
-            {/* Filter on price */}
-            <div className="sidebar ms-1 ">
-              <h3>Filter by Price:</h3>
-              <div>
-                <input
-                  type="checkbox"
-                  id="price_40_80"
-                  value="40-80"
-                  onChange={handleCheckboxChange}
-                />
-                <label htmlFor="price_40_80">$40 - $80</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  id="price_80_120"
-                  value="80-120"
-                  onChange={handleCheckboxChange}
-                />
-                <label htmlFor="price_80_120">$80 - $120</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  id="price_121_160"
-                  value="121-160"
-                  onChange={handleCheckboxChange}
-                />
-                <label htmlFor="price_121_160">$121 - $160</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  id="price_161_200"
-                  value="161-200"
-                  onChange={handleCheckboxChange}
-                />
-                <label htmlFor="price_161_200">$161 - $200</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  id="price_201_250"
-                  value="201-250"
-                  onChange={handleCheckboxChange}
-                />
-                <label htmlFor="price_201_250">$201 - $250</label>
+                <label className="form-check-label" htmlFor="all">
+                  All
+                </label>
               </div>
 
-              {/* Display selected price ranges */}
-              <div>
-                <h4>Selected Price Ranges:</h4>
-                <ul>
+              {["Men", "Women", "Shoes", "Electronic", "Beauty"].map((cat) => (
+                <div className="form-check" key={cat}>
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id={cat}
+                    checked={selectedCategories.includes(cat)}
+                    onChange={() => handleCategoryChange(cat)}
+                  />
+                  <label className="form-check-label" htmlFor={cat}>
+                    {cat}
+                  </label>
+                </div>
+              ))}
+            </div>
+
+            {/* Price Filter */}
+            <div>
+              <h6 className="text-uppercase  fw-bold mb-3">
+                Filter by Price
+              </h6>
+
+              {["40-80", "80-120", "121-160", "161-200", "201-250"].map(
+                (price) => (
+                  <div className="form-check" key={price}>
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id={price}
+                      value={price}
+                      checked={selectedPrices.includes(price)}
+                      onChange={handleCheckboxChange}
+                    />
+                    <label className="form-check-label" htmlFor={price}>
+                      ₹{price}
+                    </label>
+                  </div>
+                ),
+              )}
+
+              {/* Selected Price Display */}
+              <div className="mt-3">
+                <small className="text-muted fw-bold">
+                  Selected Price Ranges:
+                </small>
+                <ul className="mb-0">
                   {selectedPrices.map((price) => (
                     <li key={price}>{price}</li>
                   ))}
@@ -230,9 +182,7 @@ export default function ProductsPage() {
 
           {/* Products */}
           <div className="products-container ps-5 pt-4">
-            
             <div className="row g-4">
-              
               {isLoading ? (
                 Array(8)
                   .fill()
@@ -249,33 +199,34 @@ export default function ProductsPage() {
                     key={product.id || index}
                     className="col-12 col-md-6 col-lg-3 my-4 mb-4"
                   >
-                     <div className="card h-100">
-                    <img
-                      src={product.imageUrl}
-                      onClick={() => openPage(product)}
-                      className="card-img-top"
-                      style={{ height: "15rem" }}
-                      alt={product.title}
-                      loading="lazy"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{product.name}</h5>
-                      <p className="card-text">
-                        {Array.isArray(product.description)
-                          ? product.description[0]
-                          : product.description || "No description available"}
-                      </p>
-                      <div className="d-flex align-item-center justify-content-between">
-
-                      <span className="card-text">Price: ${product.price}</span>
-                      <button
-                        onClick={() => sendData(product)}
-                        className="btn btn-primary"
-                        >
-                        Add to Cart
-                      </button>
+                    <div className="card h-100">
+                      <img
+                        src={product.imageUrl}
+                        onClick={() => openPage(product)}
+                        className="card-img-top"
+                        style={{ height: "15rem" }}
+                        alt={product.title}
+                        loading="lazy"
+                      />
+                      <div className="card-body">
+                        <h5 className="card-title">{product.name}</h5>
+                        <p className="card-text">
+                          {Array.isArray(product.description)
+                            ? product.description[0]
+                            : product.description || "No description available"}
+                        </p>
+                        <div className="d-flex align-item-center justify-content-between">
+                          <span className="card-text">
+                            Price: ${product.price}
+                          </span>
+                          <button
+                            onClick={() => sendData(product)}
+                            className="btn btn-primary"
+                          >
+                            Add to Cart
+                          </button>
                         </div>
-                    </div>
+                      </div>
                     </div>
                   </div>
                 ))
