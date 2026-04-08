@@ -29,5 +29,5 @@ Currently, two official plugins are available:
  -   eslint-plugin-react 7.37.-2
  -   eslint-plugin-react-hooks 5.0.0
  -   eslint-plugin-react-refresh 0.4.14
-  -  globals 15.12.0
-  -  vite 6.0.1"
+ -  globals 15.12.0
+ -  vite 6.0.1"
