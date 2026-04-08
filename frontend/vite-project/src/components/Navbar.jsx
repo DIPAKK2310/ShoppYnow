@@ -74,7 +74,7 @@ function Navbar() {
 
 
           {/* MENU */}
-          <div className="collapse navbar-collapse d-flex align-items-end" id="navbarNav">
+          <div className="collapse navbar-collapse align-items-end" id="navbarNav">
 
             <ul className="navbar-nav mx-auto mt-3 mt-lg-0 gap-3">
 
