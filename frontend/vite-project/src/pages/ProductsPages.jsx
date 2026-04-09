@@ -6,6 +6,7 @@ import axios from "axios";
 import Footer from "../components/Footer";
 import SkeletonCard from "../components/ui/SkeletonCard.jsx";
 import { useQuery } from "@tanstack/react-query";
+import { FaFilter } from "react-icons/fa";
 
 export default function ProductsPage() {
   const [filterData, setFilteredData] = useState([]);
@@ -104,9 +105,90 @@ export default function ProductsPage() {
   return (
     <main>
       <div className="container-fluid ">
+<button
+  className="btn btn-primary d-md-none mb-3"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#mobileSidebar"
+>
+  <FaFilter />
+  </button>
+  {/* Mobile Sidebar (Offcanvas) */}
+<div
+  className="offcanvas offcanvas-start"
+  tabIndex="-1"
+  id="mobileSidebar"
+>
+  <div className="offcanvas-header">
+    <h5 className="offcanvas-title">Filters</h5>
+    <button
+      type="button"
+      className="btn-close"
+      data-bs-dismiss="offcanvas"
+    ></button>
+  </div>
+
+  <div className="offcanvas-body">
+    {/* Categories */}
+    <div className="mb-4">
+      <h6 className="text-uppercase fw-bold mb-3">Categories</h6>
+
+      <div className="form-check">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          id="all-mobile"
+          checked={selectedCategories.includes("All")}
+          onChange={() => handleCategoryChange("All")}
+        />
+        <label className="form-check-label" htmlFor="all-mobile">
+          All
+        </label>
+      </div>
+
+      {["Men", "Women", "Shoes", "Electronic", "Beauty"].map((cat) => (
+        <div className="form-check" key={cat}>
+          <input
+            className="form-check-input"
+            type="checkbox"
+            id={`${cat}-mobile`}
+            checked={selectedCategories.includes(cat)}
+            onChange={() => handleCategoryChange(cat)}
+          />
+          <label className="form-check-label" htmlFor={`${cat}-mobile`}>
+            {cat}
+          </label>
+        </div>
+      ))}
+    </div>
+
+    {/* Price Filter */}
+    <div>
+      <h6 className="text-uppercase fw-bold mb-3">Filter by Price</h6>
+
+      {["40-80", "80-120", "121-160", "161-200", "201-250"].map(
+        (price) => (
+          <div className="form-check" key={price}>
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id={`${price}-mobile`}
+              value={price}
+              checked={selectedPrices.includes(price)}
+              onChange={handleCheckboxChange}
+            />
+            <label className="form-check-label" htmlFor={`${price}-mobile`}>
+              ₹{price}
+            </label>
+          </div>
+        ),
+      )}
+    </div>
+  </div>
+</div>
         <div className="d-flex">
           {/* Sidebar */}
-          <div className="col-md-3 p-3 border-end">
+          {/* Mobile Filter Button */}
+          <div className="col-md-3 p-3 border-end d-none d-md-block">
             {/* Categories */}
             <div className="mb-4">
               <h6 className="text-uppercase  fw-bold mb-3">
@@ -182,7 +264,7 @@ export default function ProductsPage() {
 
           {/* Products */}
           <div className="products-container ps-5 pt-4">
-            <div className="row g-4">
+            <div className="row g-4 justify-content-center justify-content-lg-start">
               {isLoading ? (
                 Array(8)
                   .fill()
