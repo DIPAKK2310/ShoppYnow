@@ -5,7 +5,7 @@ import {
   LuAward,
   LuHeart,
   LuGlobe,
-  LuCheckCircle,
+  LuCheckCheck,
 } from "react-icons/lu";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
@@ -58,7 +58,6 @@ const About = () => {
 
   return (
     <>
-      <Navbar />
 
       {/* HERO */}
       <section className="py-5 bg-light">
@@ -124,9 +123,9 @@ const About = () => {
                   transition={{ delay: i * 0.1 }}
                   className="p-3 border rounded h-100"
                 >
-                  <LuCheckCircle className="text-primary mb-2" size={24} />
+                  <LuCheckCheck className="text-primary mb-2" size={24} />
                   <h6>{v.title}</h6>
-                  <p className="text-muted small">{v.description}</p>
+                  <p className="text small">{v.description}</p>
                 </motion.div>
               </div>
             ))}
@@ -135,25 +134,25 @@ const About = () => {
       </section>
 
       {/* CONTACT */}
-      <section className="py-5 bg-light">
+      <section className="py-5 ">
         <div className="container">
           <div className="row">
 
             {/* LEFT */}
-            <div className="col-lg-6 mb-4">
+            <div className="col-lg-6 mb-4 ">
               <motion.div {...fadeUp}>
-                <p className="text-uppercase text-primary small">Get In Touch</p>
+                <p className="text-uppercase text-center text-primary small">Get In Touch</p>
                 <h2>
                   We'd Love to <span className="text-primary fst-italic">Hear</span>
                 </h2>
-                <p className="text-muted">
+                <p className="">
                   Have questions? Drop a message and we’ll reply soon.
                 </p>
               </motion.div>
             </div>
 
             {/* FORM */}
-            <div className="col-lg-6">
+            <div className="col-lg-6 text-red">
               <motion.form
                 {...fadeUp}
                 onSubmit={handleSubmit}
