@@ -152,11 +152,11 @@ const About = () => {
             </div>
 
             {/* FORM */}
-            <div className="col-lg-6 text-red">
+            <div className="col-lg-6 ">
               <motion.form
                 {...fadeUp}
                 onSubmit={handleSubmit}
-                className="p-4 border rounded bg-white"
+                className="p-4 border rounded bg-navy"
               >
                 <div className="mb-3">
                   <label className="form-label">Name</label>
