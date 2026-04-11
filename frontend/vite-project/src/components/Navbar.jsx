@@ -94,7 +94,7 @@ function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/ProductsPages">
+                <Link className="nav-link" to="/contact-us">
                   Contact
                 </Link>
               </li>
