@@ -32,3 +32,4 @@ Currently, two official plugins are available:
  -   globals 15.12.0
  -   vite 6.0.1"
  -   Framer Motion
+ - env
