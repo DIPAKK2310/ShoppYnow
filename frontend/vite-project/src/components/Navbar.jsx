@@ -25,9 +25,7 @@ function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const hideAuthButtons = ["/login", "/register"].includes(
-    location.pathname
-  );
+  const hideAuthButtons = ["/login", "/register"].includes(location.pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -56,7 +54,6 @@ function Navbar() {
         } ${scrolled ? "shadow-sm" : ""}`}
       >
         <div className="container">
-
           {/* MOBILE TOGGLE */}
           <button
             className="navbar-toggler"
@@ -72,12 +69,12 @@ function Navbar() {
             ShoppYnow
           </Link>
 
-
           {/* MENU */}
-          <div className="collapse navbar-collapse align-items-end" id="navbarNav">
-
+          <div
+            className="collapse navbar-collapse flex-column flex-lg-row align-items-start align-items-lg-center"
+            id="navbarNav"
+          >
             <ul className="navbar-nav mx-auto mt-3 mt-lg-0 gap-3">
-
               <li className="nav-item">
                 <Link className="nav-link" to="/">
                   Home
@@ -98,69 +95,54 @@ function Navbar() {
                   Contact
                 </Link>
               </li>
-
             </ul>
 
-            
-          {/* RIGHT ICONS */}
-          <div className="d-flex align-items-center gap-2 ms-auto">
-
-            {/* SEARCH TOGGLE */}
-            <button
-              className={`btn btn-link ${darkMode ? "text-light" : "text-dark"}`}
-              onClick={() => setSearchOpen(!searchOpen)}
-            >
-              <LuSearch size={18} />
-            </button>
-
-            {/* USER */}
-            <div className="d-none d-sm-flex align-items-center ml-4">
-              <LuUser size={18} className="me-1" />
-              <small>
-                {isLoggedIn
-                  ? user?.username || "User"
-                  : "Guest"}
-              </small>
-            </div>
-
-            {/* ADMIN */}
-            {isAdmin && (
-              <Link className="btn btn-link text-dark" to="/admin">
-                <AdminPanelSettingsIcon />
+            {/* RIGHT ICONS */}
+            <div className="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-2 ms-lg-auto mt-3 mt-lg-0">
+              {" "}
+              {/* SEARCH TOGGLE */}
+              <button
+                className={`btn btn-link ${darkMode ? "text-light" : "text-dark"}`}
+                onClick={() => setSearchOpen(!searchOpen)}
+              >
+                <LuSearch size={18} />
+              </button>
+              {/* USER */}
+              <div className="d-none d-sm-flex align-items-center ml-4">
+                <LuUser size={18} className="me-1" />
+                <small>{isLoggedIn ? user?.username || "User" : "Guest"}</small>
+              </div>
+              {/* ADMIN */}
+              {isAdmin && (
+                <Link className="btn btn-link text-dark" to="/admin">
+                  <AdminPanelSettingsIcon />
+                </Link>
+              )}
+              {/* CART */}
+              <Link
+                className={`btn btn-link position-relative ${darkMode ? "text-light" : "text-dark"}`}
+                to="/cart"
+              >
+                <LuShoppingBag size={18} />
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                  3
+                </span>
               </Link>
-            )}
-
-            {/* CART */}
-            <Link
-              className={`btn btn-link position-relative ${darkMode ? "text-light" : "text-dark"}`}
-              to="/cart"
-            >
-              <LuShoppingBag size={18} />
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
-                3
-              </span>
-            </Link>
-
-            {/* THEME */}
-            <button
-              className="btn btn-light py-1"
-              onClick={toggleDarkMode}
-            >
-              {darkMode ? <IoIosSunny /> : <FaMoon />}
-            </button>
-          </div>
+              {/* THEME */}
+              <button className="btn btn-light py-1" onClick={toggleDarkMode}>
+                {darkMode ? <IoIosSunny /> : <FaMoon />}
+              </button>
+            </div>
             {/* AUTH BUTTONS */}
             {!hideAuthButtons && (
-            <div className="d-flex gap-2 ms-2">
+              <div className="d-flex gap-2 mt-2 mt-lg-0 ms-md-4">
+                {" "}
                 {!isLoggedIn ? (
                   <Link className="btn btn-outline-primary" to="/login">
                     Login
                   </Link>
                 ) : (
-                  <button
-                    className="btn btn-danger"
-                    onClick={handleLogout}
-                  >
+                  <button className="btn btn-danger" onClick={handleLogout}>
                     Logout
                   </button>
                 )}
