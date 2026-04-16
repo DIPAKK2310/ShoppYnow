@@ -151,7 +151,7 @@ function Navbar() {
           </div>
             {/* AUTH BUTTONS */}
             {!hideAuthButtons && (
-              <div className="d-flex gap-2 ">
+              <div className="d-flex gap-2 ml-2">
                 {!isLoggedIn ? (
                   <Link className="btn btn-outline-primary" to="/login">
                     Login
