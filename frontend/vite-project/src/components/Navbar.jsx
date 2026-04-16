@@ -103,7 +103,7 @@ function Navbar() {
 
             
           {/* RIGHT ICONS */}
-          <div className="d-flex align-items-center gap-2">
+          <div className="d-flex align-items-center gap-2 ms-auto">
 
             {/* SEARCH TOGGLE */}
             <button
@@ -114,7 +114,7 @@ function Navbar() {
             </button>
 
             {/* USER */}
-            <div className="d-none d-sm-flex align-items-center">
+            <div className="d-none d-sm-flex align-items-center ml-4">
               <LuUser size={18} className="me-1" />
               <small>
                 {isLoggedIn
@@ -151,7 +151,7 @@ function Navbar() {
           </div>
             {/* AUTH BUTTONS */}
             {!hideAuthButtons && (
-              <div className="d-flex gap-2 ml-2">
+            <div className="d-flex gap-2 ms-2">
                 {!isLoggedIn ? (
                   <Link className="btn btn-outline-primary" to="/login">
                     Login
