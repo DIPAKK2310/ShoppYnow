@@ -77,15 +77,20 @@ const HeroSection = () => {
               transition={{ duration: 0.6, delay: 0.8 }}
               className="d-flex flex-wrap gap-3"
             >
+              <a href="/ProductsPages">
               <Button
                 variant="warning"
                 size="lg"
                 className="d-flex align-items-center gap-2 px-4 py-2"
+
               >
+
                 <LuShoppingBag  size={20} />
                 Shop Now
               </Button>
+                </a>
 
+              
               <Button
                 variant="outline-light"
                 size="lg"
