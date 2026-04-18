@@ -90,15 +90,17 @@ const HeroSection = () => {
               </Button>
                 </a>
 
-              
+              <a href="#features">
+
               <Button
                 variant="outline-light"
                 size="lg"
                 className="d-flex align-items-center gap-2 px-4 py-2"
-              >
+                >
                 Explore
                 <LuArrowRight size={20} />
               </Button>
+                </a>
             </motion.div>
 
           </div>
