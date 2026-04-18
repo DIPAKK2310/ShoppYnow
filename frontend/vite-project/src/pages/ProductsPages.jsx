@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addcart } from "../redux/Slice";
 import axios from "axios";
-import Footer from "../components/Footer";
 import SkeletonCard from "../components/ui/SkeletonCard.jsx";
 import { useQuery } from "@tanstack/react-query";
 import { FaFilter } from "react-icons/fa";
@@ -317,7 +316,6 @@ export default function ProductsPage() {
           </div>
         </div>
       </div>
-      <Footer />
     </main>
   );
 }
