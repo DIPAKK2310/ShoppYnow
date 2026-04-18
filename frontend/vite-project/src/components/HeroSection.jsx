@@ -77,7 +77,7 @@ const HeroSection = () => {
               transition={{ duration: 0.6, delay: 0.8 }}
               className="d-flex flex-wrap gap-3"
             >
-              <a href="/ProductsPages">
+              <a href="/ProductsPages" className="text-decoration-none">
               <Button
                 variant="warning"
                 size="lg"
@@ -90,7 +90,7 @@ const HeroSection = () => {
               </Button>
                 </a>
 
-              <a href="#features">
+              <a href="#features" className="text-decoration-none">
 
               <Button
                 variant="outline-light"
