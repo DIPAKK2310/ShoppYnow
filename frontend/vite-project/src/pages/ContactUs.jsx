@@ -1,175 +1,182 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import {
-  LuMail,
-  LuPhone,
-  LuMapPin,
-  LuClock,
-  LuMessageCircle,
-  LuHeadphones,
-  LuShieldCheck,
   LuSend,
+  LuMail,
+  LuMapPin,
+  LuTwitter,
+  LuGithub,
+  LuLinkedin,
 } from "react-icons/lu";
 
 const Contact = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
 
-  const handleSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    if (!name || !email || !message) {
-      alert("Please fill all required fields");
-      return;
-    }
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
     alert("Message sent!");
-    setName("");
-    setEmail("");
-    setSubject("");
-    setMessage("");
+
+    setFormData({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+
+    setIsSubmitting(false);
   };
 
   return (
-    <div>
-      {/* HERO */}
-      <section className="py-5 bg-light">
-        <div className="container">
-          <div className="row align-items-center gy-4">
-            <div className="col-lg-6">
-              <p className="text-uppercase text-primary fw-bold">Contact Us</p>
-              <h1 className="display-5">
-                Let's Start a <span className="text-primary">Conversation</span>
-              </h1>
-              <p className="text-muted">
-                Whether you have a question or need help — we're here for you.
-              </p>
-            </div>
+    <section className="py-5">
+      <div className="container">
+        <div className="row g-5">
 
-            <div className="col-lg-6 text-center">
-              <LuMail size={80} className="text-primary" />
-            </div>
-          </div>
-        </div>
-      </section>
+          {/* LEFT SIDE */}
+          <motion.div
+            className="col-lg-6"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <h1 className="fw-bold mb-3 display-5">Get in Touch</h1>
 
-      {/* CONTACT METHODS */}
-      <section className="py-5 border-top border-bottom">
-        <div className="container">
-          <div className="row g-4">
-            {[
-              { icon: LuMail, title: "Email", detail: "hello@luxestore.com" },
-              { icon: LuPhone, title: "Call", detail: "+1 555 000" },
-              { icon: LuMapPin, title: "Visit", detail: "New York" },
-              { icon: LuClock, title: "Hours", detail: "10AM - 8PM" },
-            ].map((item, i) => (
-              <div className="col-md-6 col-lg-3" key={i}>
-                <div className="card text-center p-3 h-100">
-                  <item.icon size={28} className="mx-auto mb-2 text-primary" />
-                  <h5>{item.title}</h5>
-                  <p className="text-muted small">{item.detail}</p>
-                </div>
+            <p className="text-muted mb-4">
+              Have a question, project idea, or just want to say hello?
+              I'd love to hear from you.
+            </p>
+
+            {/* Email */}
+            <a
+              href="mailto:hello@example.com"
+              className="d-flex align-items-center gap-3 mb-3 text-decoration-none text-muted"
+            >
+              <div className="bg-light p-2 rounded">
+                <LuMail size={20} />
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              hello@example.com
+            </a>
 
-      {/* FORM + SIDE */}
-      <section className="py-5">
-        <div className="container">
-          <div className="row g-5">
-            {/* FORM */}
-            <div className="col-lg-6">
-              <h3>Send a Message</h3>
-
-              <form onSubmit={handleSubmit} className="card p-4">
-                <div className="row g-3">
-                  <div className="col-md-6">
-                    <label>Name *</label>
-                    <input
-                      className="form-control"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="col-md-6">
-                    <label>Email *</label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-3">
-                  <label>Subject</label>
-                  <input
-                    className="form-control"
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                  />
-                </div>
-
-                <div className="mt-3">
-                  <label>Message *</label>
-                  <textarea
-                    className="form-control"
-                    rows="5"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                  />
-                </div>
-
-                <button className="btn btn-primary mt-4 w-100">
-                  <LuSend size={16} className="me-2" />
-                  Send Message
-                </button>
-              </form>
+            {/* Location */}
+            <div className="d-flex align-items-center gap-3 mb-4 text-muted">
+              <div className="bg-light p-2 rounded">
+                <LuMapPin size={20} />
+              </div>
+              San Francisco, California
             </div>
 
-            {/* RIGHT SIDE */}
-            <div className="col-lg-6">
-              <div className="card p-4 text-center mb-4">
-                <LuMapPin size={40} className="text-primary mb-2" />
-                <h5>Our Store</h5>
-                <p className="text-muted">123 Fashion Ave, NY</p>
-              </div>
-
-              {[
-                {
-                  icon: LuMessageCircle,
-                  title: "Live Chat",
-                  desc: "Instant answers from support.",
-                },
-                {
-                  icon: LuHeadphones,
-                  title: "Support",
-                  desc: "Priority support team.",
-                },
-                {
-                  icon: LuShieldCheck,
-                  title: "Secure",
-                  desc: "Your data is safe.",
-                },
-              ].map((item, i) => (
-                <div className="card p-3 mb-3 d-flex flex-row" key={i}>
-                  <item.icon size={22} className="me-3 text-primary" />
-                  <div>
-                    <h6>{item.title}</h6>
-                    <p className="text-muted small">{item.desc}</p>
-                  </div>
-                </div>
+            {/* Social Icons */}
+            <div className="d-flex gap-3">
+              {[LuTwitter, LuGithub, LuLinkedin].map((Icon, index) => (
+                <motion.a
+                  key={index}
+                  href="#"
+                  target="_blank"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 + index * 0.1 }}
+                  className="p-2 bg-light rounded text-dark"
+                >
+                  <Icon size={18} />
+                </motion.a>
               ))}
             </div>
-          </div>
+          </motion.div>
+
+          {/* RIGHT SIDE FORM */}
+          <motion.div
+            className="col-lg-6"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <form onSubmit={handleSubmit}>
+
+              <div className="row mb-3">
+                <div className="col-sm-6">
+                  <label className="form-label">Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    className="form-control"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your name"
+                    required
+                  />
+                </div>
+
+                <div className="col-sm-6">
+                  <label className="form-label">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    className="form-control"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Subject</label>
+                <input
+                  type="text"
+                  name="subject"
+                  className="form-control"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  placeholder="What's this about?"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="form-label">Message</label>
+                <textarea
+                  name="message"
+                  rows="5"
+                  className="form-control"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Tell me about your project..."
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn btn-primary d-flex align-items-center gap-2"
+              >
+                {isSubmitting ? "Sending..." : "Send Message"}
+                <LuSend size={16} />
+              </button>
+
+            </form>
+          </motion.div>
+
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 
