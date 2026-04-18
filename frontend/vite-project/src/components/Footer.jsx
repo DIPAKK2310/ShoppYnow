@@ -54,7 +54,7 @@ const Footer = () => {
           <div className="col-6 col-md-3">
             <h6 className="fw-semibold mb-3">Support</h6>
             <ul className="list-unstyled small">
-              <li><a href="#" className="footer-link">Contact Us</a></li>
+              <li><a href="/contact" className="footer-link">Contact Us</a></li>
               <li><a href="#" className="footer-link">Returns</a></li>
               <li><a href="#" className="footer-link">Shipping Info</a></li>
               <li><a href="#" className="footer-link">FAQ</a></li>
