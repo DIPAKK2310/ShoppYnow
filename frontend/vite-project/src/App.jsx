@@ -21,6 +21,8 @@ import AdminDashboardLogin from './components/AdminDashboardLogin';
 import { useState, useEffect } from 'react';
   import {Toaster} from 'react-hot-toast'; 
 import { AuthProvider } from './store/AuthContext';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
 
 function App() {
   // Check if the user is authenticated and role is admin
@@ -53,6 +55,8 @@ function App() {
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/ProductsPages" element={<ProductsPages />} />
+            <Route path="/contact" element={<Contact />} />
+
 
             {/* Admin Routes (Login Page) */}
             <Route path="/admin/login" element={<AdminDashboardLogin  onLogin={()=> setIsAuthenticated(true)}/>} />
@@ -67,6 +71,7 @@ function App() {
             {/* Default Redirect */}
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
+          <Footer/>
           <Toaster  position="top-right" toastOptions={{duration: 2000}} />
         </AuthProvider>
         </BrowserRouter>
