@@ -24,7 +24,6 @@ function Home() {
       <Newsletter/>
 
       {/* FOOTER */}
-      <Footer />
     </>
   );
 }
