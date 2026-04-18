@@ -9,7 +9,6 @@ import {
 } from "react-icons/lu";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 const stats = [
   { icon: LuUsers, value: "50K+", label: "Happy Customers" },
@@ -200,7 +199,6 @@ const About = () => {
         </div>
       </section>
 
-      <Footer />
     </>
   );
 };
