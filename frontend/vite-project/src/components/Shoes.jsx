@@ -96,7 +96,7 @@ export const Shoes = () => {
   ];
 
   return (
-    <section className="py-5"
+    <section className="py-5" id="features"
     style={{background: "var(--background)"}}
     >
       <Container>
