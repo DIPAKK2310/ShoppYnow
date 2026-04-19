@@ -1,205 +1,123 @@
-import { motion } from "framer-motion";
+import React from "react";
 import {
-  LuSend,
+  LuShoppingCart,
+  LuTruck,
+  LuShieldCheck,
   LuUsers,
-  LuAward,
-  LuHeart,
-  LuGlobe,
-  LuCheckCheck,
+  LuBadgeCheck,
 } from "react-icons/lu";
-import { useState } from "react";
-import Navbar from "../components/Navbar";
-
-const stats = [
-  { icon: LuUsers, value: "50K+", label: "Happy Customers" },
-  { icon: LuAward, value: "12+", label: "Years of Excellence" },
-  { icon: LuHeart, value: "200+", label: "Brands Curated" },
-  { icon: LuGlobe, value: "30+", label: "Countries Served" },
-];
-
-const values = [
-  {
-    title: "Premium Quality",
-    description:
-      "Every piece is carefully selected to meet the highest standards.",
-  },
-  {
-    title: "Sustainable Fashion",
-    description: "We partner with ethical brands.",
-  },
-  {
-    title: "Timeless Design",
-    description: "Our curation focuses on timeless pieces.",
-  },
-  {
-    title: "Exceptional Service",
-    description: "We ensure a seamless shopping experience.",
-  },
-];
-
-const fadeUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-};
 
 const About = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Message sent!");
-    setName("");
-    setEmail("");
-    setMessage("");
-  };
-
   return (
-    <>
+    <div className="bg-black">
 
-      {/* HERO */}
-      <section className="py-5 bg-light">
-        <div className="container">
-          <div className="row align-items-center">
+      {/* HERO SECTION */}
+      <section className="container py-5">
+        <div className="row align-items-center">
+          <div className="col-md-6">
+            <h1 className="display-5 fw-bold">
+              Welcome to <span className="text-primary">ShoppYnow</span>
+            </h1>
+            <p className="lead text-muted mt-3">
+              Your trusted destination for fashion, electronics, and everyday essentials —
+              delivered fast, securely, and affordably.
+            </p>
+          </div>
 
-            {/* LEFT */}
-            <div className="col-lg-6 mb-4">
-              <motion.div {...fadeUp} transition={{ duration: 0.7 }}>
-                <p className="text-uppercase text-primary small">Our Story</p>
-                <h1 className="display-5 fw-light">
-                  Crafting <span className="text-primary fst-italic">Elegance</span>
-                </h1>
-                <p className="text-muted">
-                  Fashion is more than clothing — it's identity. We bring curated luxury collections.
-                </p>
-              </motion.div>
-            </div>
+          <div className="col-md-6 text-center mt-4 mt-md-0">
+            <img
+              src="https://images.unsplash.com/photo-1607083206869-4c7672e72a8a"
+              alt="shopping"
+              className="img-fluid rounded shadow"
+            />
+          </div>
+        </div>
+      </section>
 
-            {/* RIGHT */}
-            <div className="col-lg-6 text-center">
-              <motion.div {...fadeUp} transition={{ duration: 0.7 }}>
-                <LuAward size={100} className="text-primary" />
-              </motion.div>
-            </div>
+      {/* OUR STORY */}
+      <section className="container py-5">
+        <h2 className="fw-bold text-center mb-4">Our Story</h2>
+        <p className="text-muted text-center w-75 mx-auto">
+          ShoppYnow started with a simple vision — to make online shopping easy,
+          reliable, and accessible to everyone. We noticed how complicated and
+          inconsistent many platforms were, and decided to build a seamless
+          experience focused on speed, trust, and customer satisfaction.
+        </p>
+      </section>
+
+      {/* FEATURES */}
+      <section className="container py-5">
+        <h2 className="fw-bold text-center mb-5">Why Choose Us</h2>
+
+        <div className="row text-center">
+          <div className="col-md-4 mb-4">
+            <LuShoppingCart size={40} className="text-primary mb-3" />
+            <h5>Wide Product Range</h5>
+            <p className="text-muted">
+              From clothing to electronics, everything you need in one place.
+            </p>
+          </div>
+
+          <div className="col-md-4 mb-4">
+            <LuTruck size={40} className="text-primary mb-3" />
+            <h5>Fast Delivery</h5>
+            <p className="text-muted">
+              Reliable and quick shipping to get your products on time.
+            </p>
+          </div>
+
+          <div className="col-md-4 mb-4">
+            <LuShieldCheck size={40} className="text-primary mb-3" />
+            <h5>Secure Payments</h5>
+            <p className="text-muted">
+              Your transactions are protected with industry-grade security.
+            </p>
           </div>
         </div>
       </section>
 
       {/* STATS */}
-      <section className="py-5 border-top border-bottom">
+      <section className="bg-white py-5">
         <div className="container">
           <div className="row text-center">
-            {stats.map((stat, i) => {
-              const Icon = stat.icon;
-              return (
-                <div className="col-6 col-md-3 mb-4" key={i}>
-                  <motion.div {...fadeUp} transition={{ delay: i * 0.1 }}>
-                    <Icon size={30} className="mb-2 text-primary" />
-                    <h4>{stat.value}</h4>
-                    <p className="text-muted small">{stat.label}</p>
-                  </motion.div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* VALUES */}
-      <section className="py-5">
-        <div className="container">
-          <div className="text-center mb-4">
-            <p className="text-uppercase text-primary small">What Drives Us</p>
-            <h2>Our Core Values</h2>
-          </div>
-
-          <div className="row">
-            {values.map((v, i) => (
-              <div className="col-md-6 col-lg-3 mb-4" key={i}>
-                <motion.div
-                  {...fadeUp}
-                  transition={{ delay: i * 0.1 }}
-                  className="p-3 border rounded h-100"
-                >
-                  <LuCheckCheck className="text-primary mb-2" size={24} />
-                  <h6>{v.title}</h6>
-                  <p className="text small">{v.description}</p>
-                </motion.div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CONTACT */}
-      <section className="py-5 ">
-        <div className="container">
-          <div className="row">
-
-            {/* LEFT */}
-            <div className="col-lg-6 mb-4 ">
-              <motion.div {...fadeUp}>
-                <p className="text-uppercase text-center text-primary small">Get In Touch</p>
-                <h2>
-                  We'd Love to <span className="text-primary fst-italic">Hear</span>
-                </h2>
-                <p className="">
-                  Have questions? Drop a message and we’ll reply soon.
-                </p>
-              </motion.div>
+            <div className="col-md-3 mb-4">
+              <LuUsers size={35} className="text-primary mb-2" />
+              <h4>10K+</h4>
+              <p className="text-muted">Happy Customers</p>
             </div>
 
-            {/* FORM */}
-            <div className="col-lg-6 ">
-              <motion.form
-                {...fadeUp}
-                onSubmit={handleSubmit}
-                className="p-4 border rounded bg-navy"
-              >
-                <div className="mb-3">
-                  <label className="form-label">Name</label>
-                  <input
-                    className="form-control"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
-                </div>
+            <div className="col-md-3 mb-4">
+              <LuShoppingCart size={35} className="text-primary mb-2" />
+              <h4>5K+</h4>
+              <p className="text-muted">Products Sold</p>
+            </div>
 
-                <div className="mb-3">
-                  <label className="form-label">Email</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
+            <div className="col-md-3 mb-4">
+              <LuTruck size={35} className="text-primary mb-2" />
+              <h4>2K+</h4>
+              <p className="text-muted">Orders Delivered</p>
+            </div>
 
-                <div className="mb-3">
-                  <label className="form-label">Message</label>
-                  <textarea
-                    className="form-control"
-                    rows="4"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <button className="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2">
-                  <LuSend />
-                  Send Message
-                </button>
-              </motion.form>
+            <div className="col-md-3 mb-4">
+              <LuBadgeCheck size={35} className="text-primary mb-2" />
+              <h4>99%</h4>
+              <p className="text-muted">Customer Satisfaction</p>
             </div>
           </div>
         </div>
       </section>
 
-    </>
+      {/* CTA */}
+      <section className="container py-5 text-center">
+        <h2 className="fw-bold mb-3">Start Shopping with Confidence</h2>
+        <p className="text-muted mb-4">
+          Discover quality products, great deals, and a seamless shopping experience.
+        </p>
+        <a href="/products" className="btn btn-primary px-4 py-2">
+          Shop Now
+        </a>
+      </section>
+    </div>
   );
 };
 
