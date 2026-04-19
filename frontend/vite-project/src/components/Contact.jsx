@@ -45,9 +45,11 @@ const Contact = () => {
   };
 
   return (
-    <section className="py-5">
+    <section className="py-5"       style={{ backgroundColor: "#111" }}
+>
       <div className="container">
         <div className="row g-5">
+          
 
           {/* LEFT SIDE */}
           <motion.div
@@ -55,9 +57,20 @@ const Contact = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
+               <div
+          className="position-absolute rounded-circle"
+          style={{
+            width: "250px",
+            height: "250px",
+            background: "#ffc107",
+            filter: "blur(100px)",
+            top: "-80px",
+            left: "-80px",
+          }}
+        />
             <h1 className="fw-bold mb-3 display-5">Get in Touch</h1>
 
-            <p className="text-muted mb-4">
+            <p className=" mb-4">
               Have a question, project idea, or just want to say hello?
               I'd love to hear from you.
             </p>
@@ -65,7 +78,7 @@ const Contact = () => {
             {/* Email */}
             <a
               href="mailto:hello@example.com"
-              className="d-flex align-items-center gap-3 mb-3 text-decoration-none text-muted"
+              className="d-flex align-items-center gap-3 mb-3 text-decoration-none "
             >
               <div className="bg-light p-2 rounded">
                 <LuMail size={20} />
@@ -74,7 +87,7 @@ const Contact = () => {
             </a>
 
             {/* Location */}
-            <div className="d-flex align-items-center gap-3 mb-4 text-muted">
+            <div className="d-flex align-items-center gap-3 mb-4 ">
               <div className="bg-light p-2 rounded">
                 <LuMapPin size={20} />
               </div>
@@ -172,10 +185,13 @@ const Contact = () => {
               </button>
 
             </form>
+            
           </motion.div>
 
         </div>
+        
       </div>
+      
     </section>
   );
 };
