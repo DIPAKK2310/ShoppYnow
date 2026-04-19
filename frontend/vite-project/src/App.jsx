@@ -4,7 +4,6 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
-import ContactUs from './pages/ContactUs';
 import Logout from './pages/Logout';
 import AdminDashboard from './layout/AdminDashboard';
 import Users from './layout/Users';
@@ -49,7 +48,6 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/aboutUs" element={<AboutUs />} />
