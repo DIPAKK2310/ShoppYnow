@@ -33,3 +33,4 @@ Currently, two official plugins are available:
  -   vite 6.0.1"
  -   Framer Motion
  -   env
+ -   vercel.json
