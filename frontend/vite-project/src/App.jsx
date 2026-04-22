@@ -15,6 +15,7 @@ import store from './redux/Store';
 import { Provider } from 'react-redux';
 import AboutUs from './pages/AboutUs';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsConditions from './pages/TermsConditions';
 import ProductsPages from './pages/ProductsPages';
 import AdminDashboardLogin from './components/AdminDashboardLogin';
 import { useState, useEffect } from 'react';
@@ -52,6 +53,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-conditions" element={<TermsConditions />} />
             <Route path="/ProductsPages" element={<ProductsPages />} />
             <Route path="/contact" element={<Contact />} />
 
