@@ -57,7 +57,7 @@ const Footer = () => {
               <li><a href="/contact" className="footer-link">Contact Us</a></li>
               <li><a href="#" className="footer-link">Returns</a></li>
               <li><a href="#" className="footer-link">Shipping Info</a></li>
-              <li><a href="#" className="footer-link">FAQ</a></li>
+              <li><a href="/faq" className="footer-link">FAQ</a></li>
             </ul>
           </div>
 
