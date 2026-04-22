@@ -43,9 +43,9 @@ const Footer = () => {
           <div className="col-6 col-md-2">
             <h6 className="fw-semibold mb-3">Company</h6>
             <ul className="list-unstyled small">
-              <li><a href="#" className="footer-link">About Us</a></li>
-              <li><a href="#" className="footer-link">Careers</a></li>
-              <li><a href="#" className="footer-link">Privacy Policy</a></li>
+              <li><a href="/aboutUs" className="footer-link">About Us</a></li>
+              <li><a href="/ProductsPages" className="footer-link">Products</a></li>
+              <li><a href="/privacy-policy" className="footer-link">Privacy Policy</a></li>
               <li><a href="#" className="footer-link">Terms</a></li>
             </ul>
           </div>
