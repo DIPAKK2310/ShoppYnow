@@ -34,3 +34,4 @@ Currently, two official plugins are available:
  -   Framer Motion
  -   env
  -   vercel.json
+ -   redux
