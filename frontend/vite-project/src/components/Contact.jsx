@@ -8,6 +8,8 @@ import {
   LuGithub,
   LuLinkedin,
 } from "react-icons/lu";
+import { contactSchema } from "../lib/contactSchema";
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +20,7 @@ const Contact = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -26,8 +29,20 @@ const Contact = () => {
     }));
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const result = contactSchema.safeParse(formData);
+
+    if (!result.success) {
+      console.log(result.error.flatten().fieldErrors);
+      alert("Please fix form errors");
+      return;
+    }
+    setErrors({}); // ✅ clear old errors
+
+
     setIsSubmitting(true);
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -45,11 +60,11 @@ const Contact = () => {
   };
 
   return (
-    <section className="py-5"       style={{ backgroundColor: "#111" }}
->
+    <section className="py-5" style={{ backgroundColor: "#111" }}
+    >
       <div className="container">
         <div className="row g-5">
-          
+
 
           {/* LEFT SIDE */}
           <motion.div
@@ -57,17 +72,17 @@ const Contact = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-               <div
-          className="position-absolute rounded-circle"
-          style={{
-            width: "250px",
-            height: "250px",
-            background: "#ffc107",
-            filter: "blur(100px)",
-            top: "-80px",
-            left: "-80px",
-          }}
-        />
+            <div
+              className="position-absolute rounded-circle"
+              style={{
+                width: "250px",
+                height: "250px",
+                background: "#ffc107",
+                filter: "blur(100px)",
+                top: "-80px",
+                left: "-80px",
+              }}
+            />
             <h1 className="fw-bold mb-3 display-5">Get in Touch</h1>
 
             <p className=" mb-4">
@@ -127,12 +142,15 @@ const Contact = () => {
                   <input
                     type="text"
                     name="name"
-                    className="form-control"
+                    className={`form-control ${errors.name ? "is-invalid" : ""}`}
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Your name"
                     required
                   />
+                  {errors.name && (
+                    <div className="text-danger">{errors.name[0]}</div>
+                  )}
                 </div>
 
                 <div className="col-sm-6">
@@ -146,6 +164,9 @@ const Contact = () => {
                     placeholder="your@email.com"
                     required
                   />
+                  {errors.email && (
+                    <div className="text-danger">{errors.email[0]}</div>
+                  )}
                 </div>
               </div>
 
@@ -160,6 +181,10 @@ const Contact = () => {
                   placeholder="What's this about?"
                   required
                 />
+
+                {errors.subject && (
+                  <div className="text-danger">{errors.subject[0]}</div>
+                )}
               </div>
 
               <div className="mb-4">
@@ -173,6 +198,9 @@ const Contact = () => {
                   placeholder="Tell me about your project..."
                   required
                 />
+                {errors.message && (
+                  <div className="text-danger">{errors.message[0]}</div>
+                )}
               </div>
 
               <button
@@ -185,13 +213,13 @@ const Contact = () => {
               </button>
 
             </form>
-            
+
           </motion.div>
 
         </div>
-        
+
       </div>
-      
+
     </section>
   );
 };
