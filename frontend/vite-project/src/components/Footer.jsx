@@ -31,7 +31,7 @@ const Footer = () => {
                 <LuMapPin /> Mumbai, India
               </span>
               <span className="d-flex align-items-center gap-2 text-secondary">
-                <LuPhone /> +91 98765 43210
+                <LuPhone /> +91 9875895626
               </span>
               <span className="d-flex align-items-center gap-2 text-secondary">
                 <LuMail /> support@ShoppYnow.com
