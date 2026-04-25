@@ -3,11 +3,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useDispatch, useSelector } from 'react-redux';
 import { removecart } from '../redux/Slice';
+import toast from "react-hot-toast";
 
 export default function Cart() {
   const dispatch = useDispatch();
   const cartData = useSelector((state) => state.cart.items);
-
+  
   // State variables for calculated values
   const [totalPrice, setTotalPrice] = useState(0);
   const [deliveryCharge, setDeliveryCharge] = useState(0);
@@ -48,15 +49,25 @@ export default function Cart() {
     setDeliveryDate(deliveryDay.toLocaleDateString('en-US', options));
 
   }, [cartData]); // Re-run this when cartData changes
-
+  
   // Remove item from cart
   const removeData = (item) => {
     dispatch(removecart(item.id));
+      toast.error(`${item.name} removed from cart ❌`);
+
   };
 
   // Safe function to format numbers
   const formatNumber = (value) => (typeof value === 'number' ? value.toFixed(2) : '0.00');
 
+  if (cartData.length === 0) {
+  return (
+    <div className="text-center py-5" style={{ minHeight: "60vh", color: "white" }}>
+      <h3>Your cart is empty 🛒</h3>
+      <p>Add some products to continue</p>
+    </div>
+  );
+}
   return (
     <>
       <section className="h-100 gradient-custom" style={{ backgroundColor: "#111" }} >
