@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   LuSend,
@@ -10,7 +10,6 @@ import {
 } from "react-icons/lu";
 import { contactSchema } from "../lib/contactSchema";
 
-
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -19,30 +18,60 @@ const Contact = () => {
     message: "",
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [debouncedName, setDebouncedName] = useState("");
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // ✅ Handle input change
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
+  // ✅ Debounce logic (300ms delay)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedName(formData.name);
+    }, 300);
 
+    return () => clearTimeout(timer);
+  }, [formData.name]);
+
+  // ✅ Real-time validation for NAME only
+  useEffect(() => {
+    if (!debouncedName) return;
+
+    const result = contactSchema.shape.name.safeParse(debouncedName);
+
+    if (!result.success) {
+      setErrors((prev) => ({
+        ...prev,
+        name: result.error.flatten().fieldErrors.name,
+      }));
+    } else {
+      setErrors((prev) => ({
+        ...prev,
+        name: undefined,
+      }));
+    }
+  }, [debouncedName]);
+
+  // ✅ Submit validation (full form)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const result = contactSchema.safeParse(formData);
 
     if (!result.success) {
-      console.log(result.error.flatten().fieldErrors);
-      alert("Please fix form errors");
+      setErrors(result.error.flatten().fieldErrors);
       return;
     }
-    setErrors({}); // ✅ clear old errors
 
-
+    setErrors({});
     setIsSubmitting(true);
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -60,143 +89,89 @@ const Contact = () => {
   };
 
   return (
-    <section className="py-5" style={{ backgroundColor: "#111" }}
-    >
+    <section className="py-5" style={{ backgroundColor: "#111" }}>
       <div className="container">
         <div className="row g-5">
 
-
-          {/* LEFT SIDE */}
+          {/* LEFT */}
           <motion.div
             className="col-lg-6"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <div
-              className="position-absolute rounded-circle"
-              style={{
-                width: "250px",
-                height: "250px",
-                background: "#ffc107",
-                filter: "blur(100px)",
-                top: "-80px",
-                left: "-80px",
-              }}
-            />
             <h1 className="fw-bold mb-3 display-5">Get in Touch</h1>
-
-            <p className=" mb-4">
-              Have a question, project idea, or just want to say hello?
-              I'd love to hear from you.
+            <p className="mb-4">
+              Have a question or project idea? I'd love to hear from you.
             </p>
 
-            {/* Email */}
-            <a
-              href="mailto:hello@example.com"
-              className="d-flex align-items-center gap-3 mb-3 text-decoration-none "
-            >
-              <div className="bg-light p-2 rounded">
-                <LuMail size={20} />
-              </div>
-              hello@example.com
-            </a>
-
-            {/* Location */}
-            <div className="d-flex align-items-center gap-3 mb-4 ">
-              <div className="bg-light p-2 rounded">
-                <LuMapPin size={20} />
-              </div>
-              San Francisco, California
+            <div className="d-flex align-items-center gap-3 mb-3">
+              <LuMail /> hello@example.com
             </div>
 
-            {/* Social Icons */}
-            <div className="d-flex gap-3">
-              {[LuTwitter, LuGithub, LuLinkedin].map((Icon, index) => (
-                <motion.a
-                  key={index}
-                  href="#"
-                  target="_blank"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + index * 0.1 }}
-                  className="p-2 bg-light rounded text-dark"
-                >
-                  <Icon size={18} />
-                </motion.a>
-              ))}
+            <div className="d-flex align-items-center gap-3 mb-4">
+              <LuMapPin /> San Francisco, California
             </div>
           </motion.div>
 
-          {/* RIGHT SIDE FORM */}
+          {/* FORM */}
           <motion.div
             className="col-lg-6"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
           >
             <form onSubmit={handleSubmit}>
 
-              <div className="row mb-3">
-                <div className="col-sm-6">
-                  <label className="form-label">Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    className={`form-control ${errors.name ? "is-invalid" : ""}`}
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your name"
-                    required
-                  />
-                  {errors.name && (
-                    <div className="text-danger">{errors.name[0]}</div>
-                  )}
-                </div>
-
-                <div className="col-sm-6">
-                  <label className="form-label">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    className="form-control"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="your@email.com"
-                    required
-                  />
-                  {errors.email && (
-                    <div className="text-danger">{errors.email[0]}</div>
-                  )}
-                </div>
+              {/* NAME */}
+              <div className="mb-3">
+                <label>Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  className={`form-control ${errors.name ? "is-invalid" : ""}`}
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+                {errors.name && (
+                  <div className="text-danger">{errors.name[0]}</div>
+                )}
               </div>
 
+              {/* EMAIL */}
               <div className="mb-3">
-                <label className="form-label">Subject</label>
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  className={`form-control ${errors.email ? "is-invalid" : ""}`}
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+                {errors.email && (
+                  <div className="text-danger">{errors.email[0]}</div>
+                )}
+              </div>
+
+              {/* SUBJECT */}
+              <div className="mb-3">
+                <label>Subject</label>
                 <input
                   type="text"
                   name="subject"
                   className="form-control"
                   value={formData.subject}
                   onChange={handleChange}
-                  placeholder="What's this about?"
-                  required
                 />
-
-                {errors.subject && (
-                  <div className="text-danger">{errors.subject[0]}</div>
-                )}
               </div>
 
-              <div className="mb-4">
-                <label className="form-label">Message</label>
+              {/* MESSAGE */}
+              <div className="mb-3">
+                <label>Message</label>
                 <textarea
                   name="message"
-                  rows="5"
-                  className="form-control"
+                  className={`form-control ${errors.message ? "is-invalid" : ""}`}
+                  rows="4"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Tell me about your project..."
-                  required
                 />
                 {errors.message && (
                   <div className="text-danger">{errors.message[0]}</div>
@@ -205,21 +180,18 @@ const Contact = () => {
 
               <button
                 type="submit"
+                className="btn btn-primary d-flex gap-2 align-items-center"
                 disabled={isSubmitting}
-                className="btn btn-primary d-flex align-items-center gap-2"
               >
                 {isSubmitting ? "Sending..." : "Send Message"}
-                <LuSend size={16} />
+                <LuSend />
               </button>
 
             </form>
-
           </motion.div>
 
         </div>
-
       </div>
-
     </section>
   );
 };
