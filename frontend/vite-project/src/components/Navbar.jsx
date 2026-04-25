@@ -13,6 +13,7 @@ import {
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useAuth } from "../store/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux";
 
 function Navbar() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -24,6 +25,7 @@ function Navbar() {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const cartItems = useSelector((state) => state.cart.items);
 
   const hideAuthButtons = ["/login", "/register"].includes(location.pathname);
 
@@ -59,9 +61,8 @@ function Navbar() {
     <>
       {/* 🔥 NAVBAR */}
       <nav
-        className={`navbar navbar-expand-lg sticky-top ${
-          darkMode ? "navbar-dark bg-dark" : "navbar-light bg-light"
-        } ${scrolled ? "shadow-sm" : ""}`}
+        className={`navbar navbar-expand-lg sticky-top ${darkMode ? "navbar-dark bg-dark" : "navbar-light bg-light"
+          } ${scrolled ? "shadow-sm" : ""}`}
       >
         <div className="container">
 
@@ -131,8 +132,7 @@ function Navbar() {
               >
                 <LuShoppingBag size={18} />
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
-                  3
-                </span>
+                  {cartItems.reduce((total, item) => total + (item.qty || 1), 0)}                </span>
               </Link>
 
               {/* THEME */}
