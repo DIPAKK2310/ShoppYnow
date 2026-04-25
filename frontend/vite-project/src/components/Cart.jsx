@@ -59,7 +59,7 @@ export default function Cart() {
 
   return (
     <>
-      <section className="h-100 gradient-custom" style={{ backgroundColor: "#111" }}  >
+      <section className="h-100 gradient-custom" style={{ backgroundColor: "#111" }} >
         <div className="container py-5">
           <div className="row d-flex justify-content-center my-4">
             <div className="col-md-8">
