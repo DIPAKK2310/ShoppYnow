@@ -6,7 +6,7 @@ import { removecart } from '../redux/Slice';
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const cartData = useSelector((state) => state.cart);
+  const cartData = useSelector((state) => state.cart.items);
 
   // State variables for calculated values
   const [totalPrice, setTotalPrice] = useState(0);
@@ -51,7 +51,7 @@ export default function Cart() {
 
   // Remove item from cart
   const removeData = (item) => {
-    dispatch(removecart(item));
+    dispatch(removecart(item.id));
   };
 
   // Safe function to format numbers
