@@ -15,6 +15,7 @@ import {
   LuSlidersHorizontal,
   LuChevronRight,
 } from "react-icons/lu";
+import toast from "react-hot-toast";
 
 const categories = ["Men", "Women", "Shoes", "Electronic", "Beauty"];
 const priceRanges = ["40-80", "80-120", "121-160", "161-200", "201-250"];
@@ -44,6 +45,8 @@ export default function ProductsPage() {
 
   const sendData = (value) => {
     dispatch(addcart(value));
+      toast.success(`${value.name} added to cart 🛒`);
+
   };
 
   const fetchProducts = async () => {
