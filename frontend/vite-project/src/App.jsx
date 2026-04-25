@@ -74,7 +74,7 @@ function App() {
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
           <Footer/>
-          <Toaster  position="top-right" toastOptions={{duration: 2000}} />
+          <Toaster  position="bottom-right" toastOptions={{duration: 2000}} />
         </AuthProvider>
         </BrowserRouter>
       </ThemeProvider>
