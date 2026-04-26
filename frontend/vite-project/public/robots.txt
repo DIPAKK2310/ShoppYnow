@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://shopp-ynow.vercel.app/sitemap.xml
