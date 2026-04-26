@@ -139,7 +139,15 @@ export default function ProductsPage() {
 
   /* ═══════════ FILTER SIDEBAR CONTENT (shared between desktop & mobile) ═══════════ */
   const FilterContent = () => (
-    <>
+    <div 
+      className="filter-scroll"
+
+       style={{
+      maxHeight: "calc(100vh - 120px)",  // 🔥 responsive height
+      overflowY: "auto",
+      paddingRight: "6px",
+    }}
+    >
       {/* Categories */}
       <div className="mb-4">
         <h6
@@ -365,7 +373,7 @@ export default function ProductsPage() {
           Clear All Filters ({activeFiltersCount})
         </button>
       )}
-    </>
+    </div>
   );
 
   /* ═══════════ ERROR STATE ═══════════ */
@@ -757,7 +765,7 @@ export default function ProductsPage() {
                       fontWeight: "600",
                     }}
                   >
-                    ₹{price}
+                    ${price}
                     <LuX
                       size={12}
                       style={{ cursor: "pointer" }}
