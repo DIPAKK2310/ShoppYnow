@@ -339,7 +339,7 @@ export default function ProductsPage() {
                 fontSize: "14px",
               }}
             >
-              ₹{price}
+              ${price}
             </span>
           </label>
         ))}
