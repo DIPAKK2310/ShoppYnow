@@ -901,7 +901,6 @@ export default function ProductsPage() {
                             {product.category}
                           </span>
                           {/* View overlay */}
-                          <Link to={`/products/${product._id}`} style={{ textDecoration: "none" }}>
                           <div
                             className="product-overlay"
                             style={{
@@ -928,7 +927,6 @@ export default function ProductsPage() {
                               View Details <LuChevronRight size={14} />
                             </span>
                           </div>
-                          </Link>
                         </div>
 
                         {/* Body */}
