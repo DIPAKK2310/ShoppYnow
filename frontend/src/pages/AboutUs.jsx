@@ -672,7 +672,7 @@ const AboutUs = () => {
               experience. Join thousands of satisfied customers today.
             </p>
             <a
-              href="/ProductsPages"
+              href="/products"
               className="btn d-inline-flex align-items-center gap-2"
               style={{
                 padding: "12px 32px",
