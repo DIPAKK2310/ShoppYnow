@@ -67,6 +67,7 @@
 
 import { motion } from "framer-motion";
 import { LuTimer, LuArrowRight } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 const Carousal = () => {
   return (
@@ -149,10 +150,13 @@ const Carousal = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="mt-4"
             >
+              <Link to="/products">
+              
               <button className="btn btn-warning px-4 py-2 d-inline-flex align-items-center gap-2">
                 Shop the Sale
                 <LuArrowRight />
               </button>
+              </Link>
             </motion.div>
           </div>
 
