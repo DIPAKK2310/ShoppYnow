@@ -341,7 +341,7 @@ const Login = () => {
           className="w-100 bg-white rounded-4 shadow-sm p-4 p-md-5"
           style={{ maxWidth: "420px" }}
         >
-          <h2 className="mb-2 text-center text-lg-start">Sign In</h2>
+          <h2 className="mb-2 text-center text-muted text-lg-start">Sign In</h2>
           <p className="text-muted mb-4 text-center text-lg-start">
             Enter your credentials to continue
           </p>
