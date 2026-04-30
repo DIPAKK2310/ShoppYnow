@@ -14,15 +14,25 @@ export default function ProductDetail() {
 
     const {cat,id} =   useParams()
     const [api,setapi]=useState([])
+    const BASE_URL = import.meta.env.VITE_API_URL;
+    const [loading, setLoading] = useState(true);
+
 
     
     const fetchapi=async()=>{
+        try {
+            
+            const response = await axios(`${BASE_URL}/api/product/products/${cat}/${id}.json`)
+    
+            const data = response.data
+    
+            setapi(data)
+        } catch (error) {
+                 console.error(error);
+     } finally {
+        setLoading(false);
+    }
 
-        const response = await axios(`http://localhost:4000/api/product/products/${cat}/${id}.json`)
-
-        const data =await  response.json()
-
-        setapi(data)
     }
 
     useEffect(()=>{
