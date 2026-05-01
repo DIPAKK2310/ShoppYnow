@@ -112,7 +112,7 @@ npm run dev
 **Frontend:**
 
 ```bash
-cd forntend/vite-project
+cd forntend
 npm run dev
 ```
 
