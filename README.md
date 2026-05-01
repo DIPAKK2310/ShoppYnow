@@ -68,7 +68,7 @@ cd ShoppYnow
 **Frontend:**
 
 ```bash
-cd frontend/vite-project
+cd frontend
 npm install
 # or
 yarn install
