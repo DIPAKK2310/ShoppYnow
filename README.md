@@ -125,9 +125,13 @@ The frontend will run on `http://localhost:5173` (default Vite port) and the bac
 ```
 ecommerce-mern/
 ├── .github/workflows/ci-cd.yaml
-├── frontend/vite-project/        # Frontend (Vite + React)
-├── backend/        # Backend (Node + Express + MongoDB)
+
+├── frontend        # Frontend (Vite + React)
+
+├── backend/   
+                   # Backend (Node + Express + MongoDB)
 └── README.md
+
 └── docker-compose
 ```
 
