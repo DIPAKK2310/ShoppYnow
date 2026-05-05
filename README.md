@@ -222,4 +222,4 @@ This project is licensed under the [MIT License](LICENSE).
 - [MongoDB](https://www.mongodb.com/)
 - [Node.js](https://nodejs.org/)
 
-developed by Dipak Khare 💖
+developed by DK💖
