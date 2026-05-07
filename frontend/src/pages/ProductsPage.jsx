@@ -983,7 +983,7 @@ export default function ProductsPage() {
                                 ${product.price}
                               </span>
                               <button
-                                onClick={() => sendData(product)}
+                                onClick={(e) => { e.preventDefault(); e.stopPropagation(); sendData(product); }}
                                 className="btn d-flex align-items-center gap-1"
                                 style={{
                                   background: "rgba(245, 158, 11, 0.1)",
