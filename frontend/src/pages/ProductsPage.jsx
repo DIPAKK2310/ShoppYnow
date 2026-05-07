@@ -847,173 +847,173 @@ export default function ProductsPage() {
                     >
                       <Link to={`/products/${product._id}`} style={{ textDecoration: "none" }}>
 
-                      <div
-                        className="product-card h-100"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))",
-                          border: "1px solid rgba(255,255,255,0.07)",
-                          borderRadius: "16px",
-                          overflow: "hidden",
-                          transition: "all 0.4s ease",
-                          cursor: "default",
-                          display: "flex",
-                          flexDirection: "column",
-                        }}
-                      >
-                        {/* Image */}
                         <div
+                          className="product-card h-100"
                           style={{
-                            position: "relative",
+                            background:
+                              "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))",
+                            border: "1px solid rgba(255,255,255,0.07)",
+                            borderRadius: "16px",
                             overflow: "hidden",
-                            cursor: "pointer",
-                          }}
-                        >
-                          <img
-                            src={product.imageUrl}
-                            alt={product.title || product.name}
-                            loading="lazy"
-                            style={{
-                              width: "100%",
-                              height: "220px",
-                              objectFit: "cover",
-                              transition: "transform 0.4s ease",
-                            }}
-                            className="product-image"
-                          />
-                          {/* Category badge */}
-                          <span
-                            style={{
-                              position: "absolute",
-                              top: "12px",
-                              left: "12px",
-                              padding: "4px 12px",
-                              borderRadius: "50px",
-                              background: "rgba(17,17,17,0.8)",
-                              backdropFilter: "blur(8px)",
-                              border: "1px solid rgba(245, 158, 11, 0.2)",
-                              color: "#f59e0b",
-                              fontSize: "11px",
-                              fontWeight: "600",
-                              letterSpacing: "0.5px",
-                            }}
-                          >
-                            {product.category}
-                          </span>
-                          {/* View overlay */}
-                          <div
-                            className="product-overlay"
-                            style={{
-                              position: "absolute",
-                              inset: 0,
-                              background:
-                                "linear-gradient(to top, rgba(17,17,17,0.6), transparent)",
-                              opacity: 0,
-                              transition: "opacity 0.3s ease",
-                              display: "flex",
-                              alignItems: "flex-end",
-                              justifyContent: "center",
-                              paddingBottom: "16px",
-                            }}
-                          >
-                            <span
-                              className="d-flex align-items-center gap-1"
-                              style={{
-                                color: "#f59e0b",
-                                fontSize: "13px",
-                                fontWeight: "600",
-                              }}
-                            >
-                              View Details <LuChevronRight size={14} />
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Body */}
-                        <div
-                          style={{
-                            padding: "20px",
-                            flex: 1,
+                            transition: "all 0.4s ease",
+                            cursor: "default",
                             display: "flex",
                             flexDirection: "column",
                           }}
                         >
-                          <h6
-                            className="fw-bold mb-2"
-                            style={{
-                              color: "#e8e8e8",
-                              fontSize: "15px",
-                              lineHeight: "1.4",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              whiteSpace: "nowrap",
-                            }}
-                          >
-                            {product.name}
-                          </h6>
-                          <p
-                            className="text-secondary mb-3"
-                            style={{
-                              fontSize: "13px",
-                              lineHeight: "1.6",
-                              overflow: "hidden",
-                              display: "-webkit-box",
-                              WebkitLineClamp: 2,
-                              WebkitBoxOrient: "vertical",
-                            }}
-                          >
-                            {Array.isArray(product.description)
-                              ? product.description[0]
-                              : product.description || "No description available"}
-                          </p>
-
+                          {/* Image */}
                           <div
-                            className="d-flex justify-content-between align-items-center mt-auto"
+                            style={{
+                              position: "relative",
+                              overflow: "hidden",
+                              cursor: "pointer",
+                            }}
                           >
+                            <img
+                              src={product.imageUrl}
+                              alt={product.title || product.name}
+                              loading="lazy"
+                              style={{
+                                width: "100%",
+                                height: "220px",
+                                objectFit: "cover",
+                                transition: "transform 0.4s ease",
+                              }}
+                              className="product-image"
+                            />
+                            {/* Category badge */}
                             <span
-                              className="fw-bold"
                               style={{
-                                background:
-                                  "linear-gradient(135deg, #f59e0b, #f97316)",
-                                WebkitBackgroundClip: "text",
-                                WebkitTextFillColor: "transparent",
-                                fontSize: "1.15rem",
-                              }}
-                            >
-                              ${product.price}
-                            </span>
-                            <button
-                              onClick={() => sendData(product)}
-                              className="btn d-flex align-items-center gap-1"
-                              style={{
-                                background: "rgba(245, 158, 11, 0.1)",
-                                border: "1px solid rgba(245, 158, 11, 0.25)",
-                                color: "#f59e0b",
+                                position: "absolute",
+                                top: "12px",
+                                left: "12px",
+                                padding: "4px 12px",
                                 borderRadius: "50px",
-                                padding: "6px 16px",
-                                fontSize: "12px",
+                                background: "rgba(17,17,17,0.8)",
+                                backdropFilter: "blur(8px)",
+                                border: "1px solid rgba(245, 158, 11, 0.2)",
+                                color: "#f59e0b",
+                                fontSize: "11px",
                                 fontWeight: "600",
-                                transition: "all 0.3s ease",
-                              }}
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.background =
-                                  "linear-gradient(135deg, #f59e0b, #f97316)";
-                                e.currentTarget.style.color = "#111";
-                                e.currentTarget.style.transform = "translateY(-1px)";
-                              }}
-                              onMouseLeave={(e) => {
-                                e.currentTarget.style.background =
-                                  "rgba(245, 158, 11, 0.1)";
-                                e.currentTarget.style.color = "#f59e0b";
-                                e.currentTarget.style.transform = "translateY(0)";
+                                letterSpacing: "0.5px",
                               }}
                             >
-                              <LuShoppingCart size={14} />
-                              Add to Cart
-                            </button>
+                              {product.category}
+                            </span>
+                            {/* View overlay */}
+                            <div
+                              className="product-overlay"
+                              style={{
+                                position: "absolute",
+                                inset: 0,
+                                background:
+                                  "linear-gradient(to top, rgba(17,17,17,0.6), transparent)",
+                                opacity: 0,
+                                transition: "opacity 0.3s ease",
+                                display: "flex",
+                                alignItems: "flex-end",
+                                justifyContent: "center",
+                                paddingBottom: "16px",
+                              }}
+                            >
+                              <span
+                                className="d-flex align-items-center gap-1"
+                                style={{
+                                  color: "#f59e0b",
+                                  fontSize: "13px",
+                                  fontWeight: "600",
+                                }}
+                              >
+                                View Details <LuChevronRight size={14} />
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Body */}
+                          <div
+                            style={{
+                              padding: "20px",
+                              flex: 1,
+                              display: "flex",
+                              flexDirection: "column",
+                            }}
+                          >
+                            <h6
+                              className="fw-bold mb-2"
+                              style={{
+                                color: "#e8e8e8",
+                                fontSize: "15px",
+                                lineHeight: "1.4",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              {product.name}
+                            </h6>
+                            <p
+                              className="text-secondary mb-3"
+                              style={{
+                                fontSize: "13px",
+                                lineHeight: "1.6",
+                                overflow: "hidden",
+                                display: "-webkit-box",
+                                WebkitLineClamp: 2,
+                                WebkitBoxOrient: "vertical",
+                              }}
+                            >
+                              {Array.isArray(product.description)
+                                ? product.description[0]
+                                : product.description || "No description available"}
+                            </p>
+
+                            <div
+                              className="d-flex justify-content-between align-items-center mt-auto"
+                            >
+                              <span
+                                className="fw-bold"
+                                style={{
+                                  background:
+                                    "linear-gradient(135deg, #f59e0b, #f97316)",
+                                  WebkitBackgroundClip: "text",
+                                  WebkitTextFillColor: "transparent",
+                                  fontSize: "1.15rem",
+                                }}
+                              >
+                                ${product.price}
+                              </span>
+                              <button
+                                onClick={() => sendData(product)}
+                                className="btn d-flex align-items-center gap-1"
+                                style={{
+                                  background: "rgba(245, 158, 11, 0.1)",
+                                  border: "1px solid rgba(245, 158, 11, 0.25)",
+                                  color: "#f59e0b",
+                                  borderRadius: "50px",
+                                  padding: "6px 16px",
+                                  fontSize: "12px",
+                                  fontWeight: "600",
+                                  transition: "all 0.3s ease",
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.background =
+                                    "linear-gradient(135deg, #f59e0b, #f97316)";
+                                  e.currentTarget.style.color = "#111";
+                                  e.currentTarget.style.transform = "translateY(-1px)";
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.background =
+                                    "rgba(245, 158, 11, 0.1)";
+                                  e.currentTarget.style.color = "#f59e0b";
+                                  e.currentTarget.style.transform = "translateY(0)";
+                                }}
+                              >
+                                <LuShoppingCart size={14} />
+                                Add to Cart
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
                       </Link>
                     </motion.div>
                   ))}
