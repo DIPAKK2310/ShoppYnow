@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const cartsystem = createSlice({
-
     name: "cart",
     initialState: {
         items: []
@@ -13,13 +11,15 @@ const cartsystem = createSlice({
         },
 
         removecart(state, action) {
-            state.items = state.items.filter(
-                (item) => item.id !== action.payload
+            // Remove only the FIRST item matching the _id (not all duplicates)
+            const indexToRemove = state.items.findIndex(
+                (item) => item._id === action.payload
             );
+            if (indexToRemove !== -1) {
+                state.items.splice(indexToRemove, 1);
+            }
         }
     }
-
-
 })
 
 export default cartsystem.reducer
