@@ -16,8 +16,8 @@ const getUserData = async (req, res, next) => {
     // Verify the token
     const decoded = jwt.verify(token,secretKey ); // Use the same secret key as when you signed the token
 
-    // Find the user based on the userId from the decoded token
-    const user = await User.findById(decoded.userId).select("-password");
+    // Find the user based on the id from the decoded token
+    const user = await User.findById(decoded.id).select("-password");
 
     // If user is not found
     if (!user) {
