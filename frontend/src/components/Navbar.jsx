@@ -47,6 +47,7 @@ function Navbar() {
 
   const handleLogout = () => {
     removeToken();
+    navigate("/login");
   };
 
   const handleSearchSubmit = (e) => {
