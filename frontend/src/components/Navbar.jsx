@@ -114,9 +114,37 @@ function Navbar() {
               </button>
 
               {/* USER */}
-              <div className="d-none d-sm-flex align-items-center">
-                <LuUser size={18} className="me-1" />
-                <small>{isLoggedIn ? user?.username || "User" : "Guest"}</small>
+              <div className="d-flex align-items-center gap-2">
+                <div
+                  style={{
+                    width: "32px",
+                    height: "32px",
+                    borderRadius: "50%",
+                    background: isLoggedIn
+                      ? "linear-gradient(135deg, #f59e0b, #f97316)"
+                      : "rgba(255,255,255,0.08)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                  }}
+                >
+                  <LuUser size={16} style={{ color: isLoggedIn ? "#111" : "#888" }} />
+                </div>
+                <div style={{ lineHeight: 1.2 }}>
+                  <small
+                    style={{
+                      fontWeight: 600,
+                      fontSize: "13px",
+                    }}
+                  >
+                    {isLoggedIn
+                      ? (user?.username
+                          ? user.username.charAt(0).toUpperCase() + user.username.slice(1)
+                          : "User")
+                      : "Guest"}
+                  </small>
+                </div>
               </div>
 
               {/* ADMIN */}
