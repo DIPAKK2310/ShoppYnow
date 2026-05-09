@@ -36,13 +36,84 @@ Currently, two official plugins are available:
  -   vercel.json
  -   redux
 
-## Folder Structure
- frontend<br/>
- |
-  __ src
+# Frontend Folder Structure (React + Vite)
 
- |
-   __ public
-
-  |
- __ dist
+frontend/
+│
+├── public/                     # Static files
+│   ├── images/
+│   ├── icons/
+│   └── favicon.ico
+│
+├── src/
+│   │
+│   ├── assets/                 # Images, fonts, svg, videos
+│   │   ├── images/
+│   │   ├── icons/
+│   │   └── styles/
+│   │
+│   ├── components/             # Reusable UI components
+│   │   ├── common/
+│   │   │   ├── Button.jsx
+│   │   │   ├── Loader.jsx
+│   │   │   └── Input.jsx
+│   │   │
+│   │   ├── layout/
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   └── Sidebar.jsx
+│   │   │
+│   │   └── ui/
+│   │       ├── Card.jsx
+│   │       └── Modal.jsx
+│   │
+│   ├── pages/                  # Main pages/routes
+│   │   ├── Home.jsx
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   ├── ProductDetails.jsx
+│   │   ├── Cart.jsx
+│   │   └── Admin/
+│   │       ├── Dashboard.jsx
+│   │       └── AddProduct.jsx
+│   │
+│   ├── routes/                 # React Router setup
+│   │   └── AppRoutes.jsx
+│   │
+│   ├── context/                # Context API state management
+│   │   ├── AuthContext.jsx
+│   │   └── CartContext.jsx
+│   │
+│   ├── hooks/                  # Custom hooks
+│   │   ├── useAuth.js
+│   │   └── useFetch.js
+│   │
+│   ├── services/               # API calls
+│   │   ├── axiosInstance.js
+│   │   ├── authService.js
+│   │   └── productService.js
+│   │
+│   ├── utils/                  # Utility/helper functions
+│   │   ├── formatPrice.js
+│   │   └── validators.js
+│   │
+│   ├── constants/              # Static data/constants
+│   │   └── index.js
+│   │
+│   ├── animations/             # GSAP / Framer Motion animations
+│   │   └── fadeAnimations.js
+│   │
+│   ├── styles/                 # Global styles
+│   │   ├── index.css
+│   │   └── variables.css
+│   │
+│   ├── App.jsx
+│   └── main.jsx
+│
+├── .env
+├── .gitignore
+├── package.json
+├── vite.config.js
+├── tailwind.config.js
+├── README.md
+└── eslint.config.js
