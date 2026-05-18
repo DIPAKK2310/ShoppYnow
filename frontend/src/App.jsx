@@ -68,7 +68,7 @@ function App() {
               {/* Admin Protected Routes */}
               <Route path="/admin" element={isAuthenticated ? <AdminDashboard /> : <Navigate to="/admin/login" />}>
                 <Route path="users" element={isAuthenticated ? <Users /> : <Navigate to="/admin/login" />} />
-                <Route path="Products" element={isAuthenticated ? <Products /> : <Navigate to="/admin/login" />} />
+                <Route path="Products" element={isAuthenticated ? <AdminProducts /> : <Navigate to="/admin/login" />} />
                 <Route path="messages" element={isAuthenticated ? <Messages /> : <Navigate to="/admin/login" />} />
               </Route>
 
