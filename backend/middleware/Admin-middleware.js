@@ -20,7 +20,7 @@ const authenticateAdmin=(req, res, next)=>{
        }
    
          // ✅ Check if role is admin
-       if (decoded.isAdmin) {
+       if (decoded.role !== 'admin') {
          return res.status(403).json({ message: 'Access denied. Admins only.' });
        }
        req.admin=decoded;
