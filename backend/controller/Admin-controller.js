@@ -2,7 +2,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/Auth-user');
-const { get } = require('mongoose');
 const secretKey = process.env.JWT_SECRET_KEY || '12345';
 
 // @desc Admin login controller
@@ -80,4 +79,31 @@ const getAllUsers = async (req, res) => {
 };
 
 
-module.exports = {adminLogin, getAllUsers};
+// Delete user by ID
+const deleteUser = async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// Update user by ID
+const updateUser = async (req, res) => {
+  try {
+    const { username, email } = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.params.userId,
+      { username, email },
+      { new: true }
+    ).select('-password');
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.status(200).json({ message: 'User updated', user });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+module.exports = { adminLogin, getAllUsers, deleteUser, updateUser };
