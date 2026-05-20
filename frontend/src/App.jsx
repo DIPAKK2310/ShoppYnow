@@ -18,7 +18,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
 import FAQ from './pages/FAQ';
 import AdminDashboardLogin from './components/AdminDashboardLogin';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './store/AuthContext';
 import Contact from './components/Contact';
@@ -26,17 +26,35 @@ import Footer from './components/Footer';
 import ProductsPage from './pages/ProductsPage';
 import ProductDetails from './pages/ProductDetails';
 
-function App() {
-  // Check if the user is authenticated and role is admin
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+/* ── Helper to read admin auth from localStorage ── */
+const getAdminAuth = () => {
+  const token = localStorage.getItem('token');
+  const role = localStorage.getItem('role');
+  return !!(token && role === 'admin');
+};
 
+/* ── Protected route wrapper for admin ── */
+const AdminProtectedRoute = ({ isAuthenticated, children }) => {
+  if (!isAuthenticated) return <Navigate to="/admin/login" replace />;
+  return children;
+};
+
+function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(getAdminAuth);
+
+  /* Re-check whenever localStorage changes (e.g. in another tab) */
   useEffect(() => {
-    // Check for the authentication token and role in localStorage
-    const token = localStorage.getItem('token');
-    const role = localStorage.getItem('role');
-    if (token && role === 'admin') {
-      setIsAuthenticated(true);
-    }
+    const syncAuth = () => setIsAuthenticated(getAdminAuth());
+    window.addEventListener('storage', syncAuth);
+    return () => window.removeEventListener('storage', syncAuth);
+  }, []);
+
+  const handleLogin = useCallback(() => {
+    setIsAuthenticated(true);
+  }, []);
+
+  const handleLogout = useCallback(() => {
+    setIsAuthenticated(false);
   }, []);
 
   return (
@@ -47,7 +65,7 @@ function App() {
 
             <Navbar />
             <Routes>
-              {/* Public Routes */}
+              {/* ── Public Routes ── */}
               <Route path="/" element={<Home />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
@@ -61,20 +79,34 @@ function App() {
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/contact" element={<Contact />} />
 
+              {/* ── Admin Login — redirect to /admin if already authed ── */}
+              <Route
+                path="/admin/login"
+                element={
+                  isAuthenticated
+                    ? <Navigate to="/admin" replace />
+                    : <AdminDashboardLogin onLogin={handleLogin} />
+                }
+              />
 
-              {/* Admin Routes (Login Page) */}
-              <Route path="/admin/login" element={<AdminDashboardLogin onLogin={() => setIsAuthenticated(true)} />} />
-
-              {/* Admin Protected Routes */}
-              <Route path="/admin" element={isAuthenticated ? <AdminDashboard /> : <Navigate to="/admin/login" />}>
-                <Route path="users" element={isAuthenticated ? <Users /> : <Navigate to="/admin/login" />} />
-                <Route path="products" element={isAuthenticated ? <AdminProducts /> : <Navigate to="/admin/login" />} />
-                <Route path="messages" element={isAuthenticated ? <Messages /> : <Navigate to="/admin/login" />} />
+              {/* ── Admin Protected Routes ── */}
+              <Route
+                path="/admin"
+                element={
+                  <AdminProtectedRoute isAuthenticated={isAuthenticated}>
+                    <AdminDashboard onLogout={handleLogout} />
+                  </AdminProtectedRoute>
+                }
+              >
+                <Route path="users" element={<Users />} />
+                <Route path="products" element={<AdminProducts />} />
+                <Route path="messages" element={<Messages />} />
               </Route>
 
-              {/* Default Redirect */}
-              <Route path="*" element={<Navigate to="/" />} />
+              {/* ── Default Redirect ── */}
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
+
             <Footer />
             <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
           </AuthProvider>
